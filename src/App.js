@@ -1,8 +1,10 @@
-import logo from "./logo.svg";
-import "./App.css";
-
+import { DashboardRoutes } from "./routes/DashboardRoutes";
 function App() {
-  return <div>main</div>;
+  return (
+    <>
+      <DashboardRoutes />
+    </>
+  );
 }
 
 export default App;
