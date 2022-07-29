@@ -1,4 +1,10 @@
+import PaddleTripsList from "../components/paddletripsList/PaddletripsList";
+
 function Home() {
-  return <div>Home!</div>;
+  return (
+    <div>
+      <PaddleTripsList />
+    </div>
+  );
 }
 export default Home;
