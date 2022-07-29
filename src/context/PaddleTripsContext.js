@@ -5,7 +5,7 @@ export const PaddleTripsContext = createContext();
 
 // Provider
 export const PaddleTripsProvider = ({ children }) => {
-  const [paddletrips, setPaddleTrip] = useState([]);
+  const [paddletrips, setPaddleTrips] = useState([]);
   return (
     <PaddleTripsContext.Provider value={{ paddletrips, setPaddleTrip }}>
       {children}
