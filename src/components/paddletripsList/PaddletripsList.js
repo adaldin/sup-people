@@ -1,10 +1,14 @@
-import { useContext } from "react";
-import { PaddleTripsContext } from "../../context/PaddleTripsContext";
+import { Link } from "react-router-dom";
+import Row from "react-bootstrap/Row";
+import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
 
 function PaddleTripsList() {
-  const context = useContext(PaddleTripsContext);
-  console.log(context);
-
-  return <div>hola soc el paddletripslist</div>;
+  return (
+    <Row>
+      <Link to={"/id"} className="text-decoration-none">
+        <PaddleTripsItem />
+      </Link>
+    </Row>
+  );
 }
 export default PaddleTripsList;

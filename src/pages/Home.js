@@ -1,10 +1,10 @@
 import PaddleTripsList from "../components/paddletripsList/PaddletripsList";
-
+import Container from "react-bootstrap/Container";
 function Home() {
   return (
-    <div>
+    <Container>
       <PaddleTripsList />
-    </div>
+    </Container>
   );
 }
 export default Home;

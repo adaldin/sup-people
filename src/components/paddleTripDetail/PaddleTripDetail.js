@@ -1,4 +1,4 @@
 function PaddleTripDetail() {
-  return <div>detalle paddleTrip</div>;
+  return <div>página detalle paddleTrip</div>;
 }
 export default PaddleTripDetail;
