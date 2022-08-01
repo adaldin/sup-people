@@ -1,4 +1,4 @@
-import { db } from "./firestore/firestore";
+import { db } from "../../firebase/firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 
 class APIservice {
@@ -18,7 +18,6 @@ class APIservice {
     } catch (err) {
       console.log("Firestore error: ", err);
     }
-    return paddleTrips;
   }
 }
 
