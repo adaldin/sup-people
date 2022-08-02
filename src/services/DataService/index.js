@@ -10,6 +10,7 @@ class DataService extends APIservice {
     if (this.allData) return this.allData;
     const response = await this.APICall();
     this.allData = response;
+    return this.allData;
   }
   async getSupTripsList() {
     let result = await this.getAllData();
