@@ -1,24 +1,3 @@
-// import { db } from "../../firebase/firebase";
-// import { collection, onSnapshot } from "firebase/firestore";
-
-// export async function getAllSupTrips() {
-//   let data = [];
-//   try {
-//     const collref = collection(db, "supTrips");
-//     onSnapshot(collref, (querysnapshot) => {
-//       console.log(collref, querysnapshot);
-//       data = querysnapshot.docs.map((result) => {
-//         return { ...result.data(), id: result.id };
-//       });
-//       return data;
-//     });
-//   } catch (err) {
-//     console.log("Firestore error: ", err);
-//     return [];
-//   }
-//   console.log(data);
-// }
-
 import {
   collection,
   query,
