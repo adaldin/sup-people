@@ -1,27 +1,27 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getTodaySupTrips } from "../../services/APIService";
+import { getSupTrips } from "../../services/APIService";
 function PaddleTripDetail() {
   const { id } = useParams();
-  const [today, setToday] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [currentTrip, setCurrentTrip] = useState({});
+  // const [today, setToday] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const [currentTrip, setCurrentTrip] = useState({});
   // console.log(id);
 
-  useEffect(() => {
-    async function getData() {
-      setLoading(true);
-      const response = await getTodaySupTrips();
-      setToday(response);
-      setLoading(false);
-      // console.log(response);
-    }
-    getData();
-  }, []);
+  // useEffect(() => {
+  //   async function getData() {
+  //     setLoading(true);
+  //     const response = await getSupTrips();
+  //     setToday(response);
+  //     setLoading(false);
+  //     // console.log(response);
+  //   }
+  //   getData();
+  // }, []);
 
   return (
     <div>
-      aqui todaytrip.id== id params
+      aqui todaytrip ==={id}
       {/* {loading ? (
         <p>Loading...</p>
       ) : (

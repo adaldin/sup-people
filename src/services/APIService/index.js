@@ -1,7 +1,6 @@
 import {
   collection,
   query,
-  where,
   getDocs,
   addDoc,
   deleteDoc,
@@ -9,22 +8,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
-export async function getTodaySupTrips() {
-  let dateToday = new Date()
-    .toLocaleString("en-GB", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .split(",")[0];
-
+export async function getSupTrips() {
   let todayTrips = [];
 
   try {
-    const trips = query(
-      collection(db, "supTrips"),
-      where("supTripDate", "==", dateToday)
-    );
+    const trips = query(collection(db, "supTrips"));
     const querySnapshot = await getDocs(trips);
     querySnapshot.forEach((doc) => {
       let newTrip = { ...doc.data(), id: doc.id };
@@ -50,6 +38,7 @@ export async function updateTrips(trip) {
 export async function deleteTrip(trip) {
   try {
     const docRef = await deleteDoc(doc(db, "cities", trip.id));
+    console.log("Document deleted: ", docRef);
   } catch (err) {
     console.log("Firestore error: ", err);
     return [];
