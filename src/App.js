@@ -1,12 +1,12 @@
 import { DashboardRoutes } from "./routes/DashboardRoutes";
-import { PaddleTripsProvider } from "./context/PaddleTripsContext.js";
+import { SupTripProvider } from "./context/SupTripsContext.js";
 
 function App() {
   return (
     <>
-      <PaddleTripsProvider>
+      <SupTripProvider>
         <DashboardRoutes />
-      </PaddleTripsProvider>
+      </SupTripProvider>
     </>
   );
 }

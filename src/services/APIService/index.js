@@ -9,20 +9,20 @@ import {
 import { db } from "../../firebase/firebase";
 
 export async function getSupTrips() {
-  let todayTrips = [];
+  let totalSupTrips = [];
 
   try {
     const trips = query(collection(db, "supTrips"));
     const querySnapshot = await getDocs(trips);
     querySnapshot.forEach((doc) => {
       let newTrip = { ...doc.data(), id: doc.id };
-      todayTrips.push(newTrip);
+      totalSupTrips.push(newTrip);
     });
   } catch (err) {
     console.log("Firestore error: ", err);
     return [];
   }
-  return todayTrips;
+  return totalSupTrips;
 }
 
 export async function updateTrips(trip) {

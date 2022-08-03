@@ -3,18 +3,39 @@ import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
 import { getSupTrips } from "../../services/APIService";
+import useSupTrips from "../../context/SupTripsContext";
 
 function PaddleTripsList() {
-  const [supTrips, setSupTrips] = useState([]);
+  const [supTripsFirestore, setSupTripsFirestore] = useState([]);
+  const [isInSupTrips, setIsInSupTrips] = useState(false);
+  const { supTrips, addSupTrips, removeSupTrips } = useSupTrips();
 
   useEffect(() => {
     async function getData() {
       const response = await getSupTrips();
-      setSupTrips(response);
-      // console.log(response);
+      setSupTripsFirestore(response);
     }
     getData();
   }, []);
+
+  useEffect(() => {
+    function avoidDuplicated() {
+      const dataIsInContext = supTripsFirestore.map((supTrip) => {
+        let contextData = supTrips.find((element) => element.id === supTrip.id);
+        if (supTrip.id === contextData) {
+          setIsInSupTrips(true);
+          removeSupTrips(supTrip);
+        } else {
+          setIsInSupTrips(false);
+          console.log("no existe en contexto aun");
+          addSupTrips(supTrip);
+        }
+        return supTrip;
+      });
+    }
+    avoidDuplicated();
+  }, [supTripsFirestore]);
+
   // Filter with today date:
   // let dateToday = new Date()
   // .toLocaleString("en-GB", {
@@ -26,7 +47,7 @@ function PaddleTripsList() {
 
   return (
     <Row>
-      {supTrips.map((item, index) => (
+      {supTripsFirestore.map((item, index) => (
         <Link
           to={`${item.id}`}
           className="text-decoration-none text-muted"
