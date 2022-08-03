@@ -1,27 +1,32 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
-import DataService from "../../services/DataService";
-import { useEffect } from "react";
-import { async } from "@firebase/util";
+import { getTodaySupTrips } from "../../services/APIService";
 
 function PaddleTripsList() {
-  // init DataService (apicall)
-  const dataService = DataService;
+  const [supTrips, setSupTrips] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await dataService.getAllData();
-      console.log(response);
-    };
-    fetchData();
-  }, [dataService]);
+    async function getData() {
+      const response = await getTodaySupTrips();
+      setSupTrips(response);
+      // console.log(response);
+    }
+    getData();
+  }, []);
 
   return (
     <Row>
-      <Link to={"/id"} className="text-decoration-none">
-        <PaddleTripsItem />
-      </Link>
+      {supTrips.map((item, index) => (
+        <Link
+          to={`${item.id}`}
+          className="text-decoration-none text-muted"
+          key={index}
+        >
+          <PaddleTripsItem {...item} />
+        </Link>
+      ))}
     </Row>
   );
 }

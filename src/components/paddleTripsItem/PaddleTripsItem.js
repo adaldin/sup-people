@@ -1,12 +1,12 @@
 import Col from "react-bootstrap/Col";
-function PaddleTripsItem() {
+function PaddleTripsItem({ supTripName, supTripDate }) {
   return (
     <>
       <Col>
-        <p>Nombre trip</p>
+        <p>{supTripName}</p>
       </Col>
       <Col>
-        <p>detalles</p>
+        <p>{supTripDate}</p>
       </Col>
     </>
   );
