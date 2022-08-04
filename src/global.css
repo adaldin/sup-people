@@ -21,6 +21,12 @@
     color: #2C9BB3;
     font-size: 1.5rem;
 }
+.font-title-secondary{
+    font-family: 'Kayak Sans';
+    font-weight: bold;
+    color: #FEEABE;
+    font-size: 1.5rem;
+}
 
 .font-subtitle{
     font-family: 'Kayak Sans';
@@ -43,6 +49,18 @@
     border: 1px  #2C9BB3 solid ;
     border-radius: 5px 5px 5px 5px;
 }
-.primary-bg-color{
+.primary-front-color{
     color: #2C9BB3;
+}
+.secondary-front-color{
+    color: #FEEABE;
+}
+
+.primary-bg-color{
+    background-color: #2C9BB3;
+}
+
+.bg-gradient-primary{
+    background: rgb(44,155,179);
+    background: linear-gradient(180deg, rgba(44,155,179,1) 10%, rgba(0,171,255,0.35371179039301315) 87%);
 }

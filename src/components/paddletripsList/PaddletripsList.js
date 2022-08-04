@@ -10,7 +10,8 @@ function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
   const [loadingSupTrips, setLoadingSupTrips] = useState(true);
   const [todaySupTrips, setTodaySupTrips] = useState([]);
-  // custom hook use context
+  const [openMap, setOpenMap] = useState(false);
+  // custom hook to use context
   const { supTrips, initSupTrips } = useSupTrips();
 
   useEffect(() => {
@@ -30,6 +31,7 @@ function PaddleTripsList() {
     }
     initContext();
   }, [supTripsFirestore]);
+
   useEffect(() => {
     function filterByToday() {
       let dateToday = new Date()
@@ -52,6 +54,8 @@ function PaddleTripsList() {
     <Row className="gap-3 p-3">
       {loadingSupTrips ? (
         <Splash />
+      ) : openMap ? (
+        <p>"mapa"</p>
       ) : (
         todaySupTrips.map((item, index) => (
           <Link
