@@ -4,12 +4,12 @@ import Row from "react-bootstrap/Row";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
 import { getSupTrips } from "../../services/APIService";
 import useSupTrips from "../../context/SupTripsContext";
+import Splash from "../splash/Splash";
 
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
-  const { supTrips, initSupTrips, addSupTrip, removeSupTrip, updateSupTrip } =
-    useSupTrips();
-  const [isInSupTrips, setIsInSupTrips] = useState(false);
+  const { supTrips, initSupTrips } = useSupTrips();
+  const [loadingSupTrips, setLoadingSupTrips] = useState(true);
 
   useEffect(() => {
     async function getData() {
@@ -20,23 +20,34 @@ function PaddleTripsList() {
   }, []);
 
   useEffect(() => {
-    function avoidDuplicated() {
-      supTripsFirestore.map((supTrip) => {
-        let contextData = supTrips.find((element) => element.id === supTrip.id);
-        if (supTrip.id === contextData) {
-          setIsInSupTrips(true);
-          removeSupTrip(supTrip);
-        } else {
-          setIsInSupTrips(false);
-          console.log("no existe en contexto aun");
-          initSupTrips(supTripsFirestore);
-        }
-        return supTrip;
-      });
+    function initContext() {
+      if (supTrips.length === 0) {
+        console.log("no existe en contexto aun");
+        initSupTrips(supTripsFirestore);
+        setLoadingSupTrips(true);
+      }
     }
-
-    avoidDuplicated();
+    initContext();
   }, [supTripsFirestore]);
+
+  // useEffect(() => {
+  //   function avoidDuplicated() {
+  //     supTripsFirestore.map((supTrip) => {
+  //       let contextData = supTrips.find((element) => element.id === supTrip.id);
+  //       if (supTrip.id === contextData) {
+  //         setIsInSupTrips(true);
+  //         removeSupTrip(supTrip);
+  //       } else {
+  //         setIsInSupTrips(false);
+  //         console.log("no existe en contexto aun");
+  //         initSupTrips(supTripsFirestore);
+  //       }
+  //       return supTrip;
+  //     });
+  //   }
+
+  //   avoidDuplicated();
+  // }, [supTripsFirestore]);
 
   // Filter with today date:
   // let dateToday = new Date()
@@ -49,15 +60,19 @@ function PaddleTripsList() {
 
   return (
     <Row>
-      {supTrips.map((item, index) => (
-        <Link
-          to={`${item.id}`}
-          className="text-decoration-none text-muted"
-          key={index}
-        >
-          <PaddleTripsItem {...item} />
-        </Link>
-      ))}
+      {loadingSupTrips ? (
+        <Splash />
+      ) : (
+        supTrips.map((item, index) => (
+          <Link
+            to={`${item.id}`}
+            className="text-decoration-none text-muted"
+            key={index}
+          >
+            <PaddleTripsItem {...item} />
+          </Link>
+        ))
+      )}
     </Row>
   );
 }
