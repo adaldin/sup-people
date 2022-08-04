@@ -8,62 +8,52 @@ import Splash from "../splash/Splash";
 
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
-  const { supTrips, initSupTrips } = useSupTrips();
   const [loadingSupTrips, setLoadingSupTrips] = useState(true);
+  const [todaySupTrips, setTodaySupTrips] = useState([]);
+  // custom hook use context
+  const { supTrips, initSupTrips } = useSupTrips();
 
   useEffect(() => {
     async function getData() {
       const response = await getSupTrips();
       setSupTripsFirestore(response);
+      setLoadingSupTrips(false);
     }
     getData();
   }, []);
 
   useEffect(() => {
-    function initContext() {
+    async function initContext() {
       if (supTrips.length === 0) {
-        console.log("no existe en contexto aun");
-        initSupTrips(supTripsFirestore);
-        setLoadingSupTrips(true);
+        let init = await initSupTrips(supTripsFirestore);
       }
     }
     initContext();
   }, [supTripsFirestore]);
+  useEffect(() => {
+    function filterByToday() {
+      let dateToday = new Date()
+        .toLocaleString("en-GB", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        })
+        .split(",")[0];
 
-  // useEffect(() => {
-  //   function avoidDuplicated() {
-  //     supTripsFirestore.map((supTrip) => {
-  //       let contextData = supTrips.find((element) => element.id === supTrip.id);
-  //       if (supTrip.id === contextData) {
-  //         setIsInSupTrips(true);
-  //         removeSupTrip(supTrip);
-  //       } else {
-  //         setIsInSupTrips(false);
-  //         console.log("no existe en contexto aun");
-  //         initSupTrips(supTripsFirestore);
-  //       }
-  //       return supTrip;
-  //     });
-  //   }
-
-  //   avoidDuplicated();
-  // }, [supTripsFirestore]);
-
-  // Filter with today date:
-  // let dateToday = new Date()
-  // .toLocaleString("en-GB", {
-  //   year: "numeric",
-  //   month: "2-digit",
-  //   day: "2-digit",
-  // })
-  // .split(",")[0];
+      let todayTrips = supTrips.filter(
+        (trip) => trip.supTripDate === dateToday
+      );
+      setTodaySupTrips(todayTrips);
+    }
+    filterByToday();
+  }, [supTrips]);
 
   return (
-    <Row>
+    <Row className="gap-3 p-3">
       {loadingSupTrips ? (
         <Splash />
       ) : (
-        supTrips.map((item, index) => (
+        todaySupTrips.map((item, index) => (
           <Link
             to={`${item.id}`}
             className="text-decoration-none text-muted"

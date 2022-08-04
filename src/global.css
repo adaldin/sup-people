@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Kayak Sans';
+    src: local('Kayak-Sans-Light'), url("./assets/fonts/Kayak-Sans-Light.otf") format('otf');
+    src: local('Kayak-Sans-Light-Italic'), url("./assets/fonts/Kayak-Sans-Light-Italic.otf") format('otf');
+    src: local('Kayak-Sans-Regular'), url("./assets/fonts/Kayak-Sans-Regular.otf") format('otf');
+    src: local('Kayak-Sans-Regular-Italic'), url("./assets/fonts/Kayak-Sans-Regular-Italic.otf") format('otf');
+    src: local('Kayak-Sans-Bold'), url("./assets/fonts/Kayak-Sans-Bold.otf") format('otf');
+    src: local('Kayak-Sans-Bold-Italic'), url("./assets/fonts/Kayak-Sans-Bold-Italic.otf") format('otf');
+  
+}
+
+.font-heading{
+    font-family: 'Kayak Sans';
+    font-weight: normal;
+    color: #2C9BB3;
+}
+
+.font-title{
+    font-family: 'Kayak Sans';
+    font-weight: bold;
+    color: #2C9BB3;
+    font-size: 1.5rem;
+}
+
+.font-subtitle{
+    font-family: 'Kayak Sans';
+    color: #2C9BB3;
+}
+.font-subHeading{
+    font-family: 'Kayak Sans';
+    font-weight: lighter;
+    font-size: 0.9rem;
+    color: #2C9BB3;
+}
+.font-body{
+    font-family: 'Kayak Sans';
+}
+.font-small{
+    font-family: 'Kayak Sans';
+}
+
+.borders{
+    border: 1px  #2C9BB3 solid ;
+    border-radius: 5px 5px 5px 5px;
+}
+.primary-bg-color{
+    color: #2C9BB3;
+}

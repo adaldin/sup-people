@@ -1,4 +1,12 @@
 .splash__container{
-    background: rgb(255,141,6);
-    background: linear-gradient(0deg, rgba(255,141,6,0.385970744680851) 0%, rgba(254,240,190,1) 80%, rgba(255,245,194,1) 100%);
+    background: rgb(251, 218, 97);
+    background: linear-gradient(0deg, rgb(235, 186, 8) 0%, rgb(247, 223, 135) 80%, rgba(255,245,194,1) 100%);
+    animation-duration : 2.5s;
+    animation-name     : slideout;
+    animation-timing-function: ease;
 }
+
+@keyframes slideout {
+    from { margin-left : 0;     }
+    to   { margin-left : -130vw; }
+    }
