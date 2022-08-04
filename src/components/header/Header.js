@@ -5,13 +5,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
-import logo from "../../assets/board-yellow.svg";
+import logo from "../../assets/board-blue.svg";
 import "../../global.css";
 
 function Header() {
   let expand = "lg";
   return (
-    <Navbar expand="lg" className="mb-3 bg-gradient-primary shadow-sm">
+    <Navbar expand="lg" className="mb-3 bg-light shadow-sm">
       <Container fluid>
         <Navbar.Brand
           href="#"
@@ -20,7 +20,7 @@ function Header() {
           <div style={{ width: "20px" }}>
             <img src={logo} alt="sup-people-logo" className="img-fluid" />
           </div>
-          <h5 className="fw-bold font-title-secondary"> sup people</h5>
+          <h5 className="fw-bold font-title"> sup people</h5>
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls={`offcanvasNavbar-expand-${expand}`}
@@ -34,20 +34,23 @@ function Header() {
           <Offcanvas.Header closeButton>
             <Offcanvas.Title
               id={`offcanvasNavbarLabel-expand-${expand}`}
-              className="font-title"
+              className="font-title d-flex align-items-center gap-2"
             >
-              Sun Sup People
+              <div style={{ width: "20px" }}>
+                <img src={logo} alt="sup-people-logo" className="img-fluid" />
+              </div>
+              sup people
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Nav.Link as={Link} to="/">
+              <Nav.Link as={Link} to="/" className="font-subHeading">
                 Today
               </Nav.Link>
-              <Nav.Link as={Link} to="/explore">
+              <Nav.Link as={Link} to="/explore" className="font-subHeading">
                 Explore
               </Nav.Link>
-              <Nav.Link as={Link} to="/profile">
+              <Nav.Link as={Link} to="/profile" className="font-subHeading">
                 Profile
               </Nav.Link>
             </Nav>

@@ -41,8 +41,10 @@
 .font-body{
     font-family: 'Kayak Sans';
 }
-.font-small{
+.font-primary-small{
     font-family: 'Kayak Sans';
+    font-size: 0.7rem;
+       color: #2C9BB3;
 }
 
 .borders{
