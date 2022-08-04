@@ -1,3 +1,4 @@
+import "./paddletripsList.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
@@ -64,7 +65,7 @@ function PaddleTripsList() {
         todaySupTrips.map((item, index) => (
           <Link
             to={`${item.id}`}
-            className="text-decoration-none text-muted"
+            className="text-decoration-none text-muted w-100"
             key={index}
           >
             <PaddleTripsItem {...item} />

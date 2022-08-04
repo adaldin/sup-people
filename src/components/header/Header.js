@@ -5,13 +5,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
-import logo from "../../assets/board-blue.svg";
+import logo from "../../assets/board-white.svg";
 import "../../global.css";
 
 function Header() {
   let expand = "lg";
   return (
-    <Navbar expand="lg" className="mb-3 bg-light shadow-sm">
+    <Navbar expand="lg" className="mb-3 primary-bg-color shadow-sm p-0">
       <Container fluid>
         <Navbar.Brand
           href="#"
@@ -20,7 +20,7 @@ function Header() {
           <div style={{ width: "20px" }}>
             <img src={logo} alt="sup-people-logo" className="img-fluid" />
           </div>
-          <h5 className="fw-bold font-title"> sup people</h5>
+          <h5 className="fw-bold white-front-color-header"> sup people</h5>
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls={`offcanvasNavbar-expand-${expand}`}
