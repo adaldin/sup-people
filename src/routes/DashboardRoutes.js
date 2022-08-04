@@ -5,6 +5,7 @@ import Profile from "../pages/Profile";
 import ProtectedRoute from "./ProtectedRoute";
 import Header from "../components/header/Header.js";
 import PaddleTripDetail from "../components/paddleTripDetail/PaddleTripDetail.js";
+import Menu from "../components/menu/Menu";
 
 export const DashboardRoutes = () => {
   return (
@@ -24,6 +25,7 @@ export const DashboardRoutes = () => {
             }
           />
         </Routes>
+        <Menu />
       </BrowserRouter>
     </>
   );
