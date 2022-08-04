@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Nav from "react-bootstrap/Nav";
 import logo from "../../assets/board-white.svg";
+import blueLogo from "../../assets/board-blue.svg";
 import "../../global.css";
 
 function Header() {
@@ -37,7 +38,11 @@ function Header() {
               className="font-title d-flex align-items-center gap-2"
             >
               <div style={{ width: "20px" }}>
-                <img src={logo} alt="sup-people-logo" className="img-fluid" />
+                <img
+                  src={blueLogo}
+                  alt="sup-people-logo"
+                  className="img-fluid"
+                />
               </div>
               sup people
             </Offcanvas.Title>
