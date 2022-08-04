@@ -7,8 +7,9 @@ import useSupTrips from "../../context/SupTripsContext";
 
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
+  const { supTrips, initSupTrips, addSupTrip, removeSupTrip, updateSupTrip } =
+    useSupTrips();
   const [isInSupTrips, setIsInSupTrips] = useState(false);
-  const { supTrips, addSupTrips, removeSupTrips } = useSupTrips();
 
   useEffect(() => {
     async function getData() {
@@ -24,15 +25,16 @@ function PaddleTripsList() {
         let contextData = supTrips.find((element) => element.id === supTrip.id);
         if (supTrip.id === contextData) {
           setIsInSupTrips(true);
-          removeSupTrips(supTrip);
+          removeSupTrip(supTrip);
         } else {
           setIsInSupTrips(false);
           console.log("no existe en contexto aun");
-          addSupTrips(supTrip);
+          initSupTrips(supTripsFirestore);
         }
         return supTrip;
       });
     }
+
     avoidDuplicated();
   }, [supTripsFirestore]);
 
@@ -47,7 +49,7 @@ function PaddleTripsList() {
 
   return (
     <Row>
-      {supTripsFirestore.map((item, index) => (
+      {supTrips.map((item, index) => (
         <Link
           to={`${item.id}`}
           className="text-decoration-none text-muted"

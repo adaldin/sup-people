@@ -8,6 +8,15 @@ export const SupTripsContext = createContext(initialState);
 export const SupTripProvider = ({ children }) => {
   const [state, dispatch] = useReducer(supTripReducer, initialState);
 
+  const initSupTrips = (APISupTrips) => {
+    dispatch({
+      type: "INIT",
+      payload: {
+        supTrips: APISupTrips,
+      },
+    });
+  };
+
   const addSupTrip = (supTrip) => {
     const updatedSupTrips = state.supTrips.concat(supTrip);
     dispatch({
@@ -30,10 +39,25 @@ export const SupTripProvider = ({ children }) => {
     });
   };
 
+  const updateSupTrip = (supTrip) => {
+    const updatedSupTrips = state.supTrips.map((el) => {
+      return el.id === supTrip.id ? supTrip : el;
+    });
+
+    dispatch({
+      type: "UPDATE_TRIP",
+      payload: {
+        supTrips: updatedSupTrips,
+      },
+    });
+  };
+
   const value = {
     supTrips: state.supTrips,
+    initSupTrips,
     addSupTrip,
     removeSupTrip,
+    updateSupTrip,
   };
 
   return (
@@ -47,8 +71,10 @@ export const SupTripProvider = ({ children }) => {
 
 const useSupTrips = () => {
   const context = useContext(SupTripsContext);
-  if (context === undefined)
+
+  if (context === undefined) {
     throw new Error("useSupTrips must be used within SupTripsContext");
+  }
   return context;
 };
 export default useSupTrips;
