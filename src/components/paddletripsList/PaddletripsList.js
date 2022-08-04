@@ -21,7 +21,7 @@ function PaddleTripsList() {
 
   useEffect(() => {
     function avoidDuplicated() {
-      const dataIsInContext = supTripsFirestore.map((supTrip) => {
+      supTripsFirestore.map((supTrip) => {
         let contextData = supTrips.find((element) => element.id === supTrip.id);
         if (supTrip.id === contextData) {
           setIsInSupTrips(true);
