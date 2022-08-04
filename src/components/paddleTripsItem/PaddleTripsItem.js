@@ -56,7 +56,7 @@ function PaddleTripsItem({
         <Card.Title>
           <h5 className="display-5 font-title">{supTripName}</h5>
         </Card.Title>
-        <Card.Text className="d-flex flex-column p-0">
+        <div className="d-flex flex-column p-0">
           <div className="d-flex  justify-content-start flex-column">
             <small className="fw-bold">Atendees</small>
             <div className="d-flex">
@@ -75,7 +75,7 @@ function PaddleTripsItem({
               </p>
             </div>
           </div>
-        </Card.Text>
+        </div>
       </Card.Body>
     </Card>
   );

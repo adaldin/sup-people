@@ -5,6 +5,7 @@ import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
 import { getSupTrips } from "../../services/APIService";
 import useSupTrips from "../../context/SupTripsContext";
 import Splash from "../splash/Splash";
+import Button from "react-bootstrap/Button";
 
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
@@ -50,12 +51,15 @@ function PaddleTripsList() {
     filterByToday();
   }, [supTrips]);
 
+  function handleMapList() {
+    setOpenMap((prevOpen) => !prevOpen);
+  }
   return (
-    <Row className="gap-3 p-3">
+    <Row className="gap-3 p-3 ">
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        <p>"mapa"</p>
+        <div>mapa component</div>
       ) : (
         todaySupTrips.map((item, index) => (
           <Link
@@ -66,6 +70,23 @@ function PaddleTripsList() {
             <PaddleTripsItem {...item} />
           </Link>
         ))
+      )}
+      {loadingSupTrips ? (
+        ""
+      ) : (
+        <div className="d-flex fixed-bottom translate-middle-y mb-5 justify-content-center">
+          <Button onClick={handleMapList} className="btn--primary shadow-sm">
+            {openMap ? (
+              <div className="p-1">
+                <small className="font-body ">List</small>
+              </div>
+            ) : (
+              <div className="p-1">
+                <small className="font-body">Map</small>
+              </div>
+            )}
+          </Button>
+        </div>
       )}
     </Row>
   );

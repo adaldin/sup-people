@@ -66,3 +66,30 @@
     background: rgb(44,155,179);
     background: linear-gradient(180deg, rgba(44,155,179,1) 10%, rgba(0,171,255,0.35371179039301315) 87%);
 }
+.btn--primary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:transparent;
+    border-radius: 20px 20px 20px 20px;
+    font-size: 0.8rem;
+    color: #2C9BB3;
+    border:1px solid #2C9BB3;
+}
+
+.btn--primary:focus{
+    color: #2C9BB3;
+    background-color:transparent;
+    border:1px solid #2393ac;
+}
+
+.btn--secondary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#2C9BB3;
+    border-radius: 20px 20px 20px 20px;
+    font-size: 0.8rem;
+    color: #FEEABE;
+    border:1px solid #2393ac;
+}
