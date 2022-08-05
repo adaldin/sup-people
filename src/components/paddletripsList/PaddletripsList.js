@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
 import { getSupTrips } from "../../services/APIService";
+import { getAllTripsEntryPoints } from "../../services/mapsService";
 import useSupTrips from "../../context/SupTripsContext";
 import Splash from "../splash/Splash";
 import Button from "react-bootstrap/Button";
@@ -34,7 +35,7 @@ function PaddleTripsList() {
   }, [supTripsFirestore]);
 
   useEffect(() => {
-    function filterByToday() {
+    function filterFromToday() {
       let dateToday = new Date()
         .toLocaleString("en-GB", {
           year: "numeric",
@@ -43,27 +44,32 @@ function PaddleTripsList() {
         })
         .split(",")[0];
 
-      let todayTrips = supTrips.filter(
-        (trip) => trip.supTripDate === dateToday
+      let fromTodayTrips = supTrips.filter(
+        (trip) => trip.supTripDate >= dateToday
       );
-      setUpcomingTrips(todayTrips);
+
+      const sortedSupTrips = fromTodayTrips.sort((a, b) => {
+        const newA = a.supTripDate.split("/").reverse().join("-");
+        const newB = b.supTripDate.split("/").reverse().join("-");
+        return +new Date(newA) - +new Date(newB);
+      });
+
+      setUpcomingTrips(sortedSupTrips);
     }
-    filterByToday();
+    filterFromToday();
   }, [supTrips]);
 
   function handleMapList() {
     setOpenMap((prevOpen) => !prevOpen);
+    const latLng = getAllTripsEntryPoints(upcomingTrips);
+    console.log(latLng);
   }
   return (
-    <Row className="gap-3 p-3 card__container">
+    <Row className="gap-3 p-3 mb-5">
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        upcomingTrips.map((item, index) => (
-          <div key={index} supTrip={item}>
-            mapa component
-          </div>
-        ))
+        <div>mapa component</div>
       ) : (
         upcomingTrips.map((item, index) => (
           <Link
