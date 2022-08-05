@@ -1,4 +1,3 @@
-import "./paddletripsList.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
@@ -11,7 +10,7 @@ import Button from "react-bootstrap/Button";
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
   const [loadingSupTrips, setLoadingSupTrips] = useState(true);
-  const [todaySupTrips, setTodaySupTrips] = useState([]);
+  const [upcomingTrips, setUpcomingTrips] = useState([]);
   const [openMap, setOpenMap] = useState(false);
   // custom hook to use context
   const { supTrips, initSupTrips } = useSupTrips();
@@ -47,7 +46,7 @@ function PaddleTripsList() {
       let todayTrips = supTrips.filter(
         (trip) => trip.supTripDate === dateToday
       );
-      setTodaySupTrips(todayTrips);
+      setUpcomingTrips(todayTrips);
     }
     filterByToday();
   }, [supTrips]);
@@ -56,13 +55,17 @@ function PaddleTripsList() {
     setOpenMap((prevOpen) => !prevOpen);
   }
   return (
-    <Row className="gap-3 p-3 ">
+    <Row className="gap-3 p-3 card__container">
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        <div>mapa component</div>
+        upcomingTrips.map((item, index) => (
+          <div key={index} supTrip={item}>
+            mapa component
+          </div>
+        ))
       ) : (
-        todaySupTrips.map((item, index) => (
+        upcomingTrips.map((item, index) => (
           <Link
             to={`${item.id}`}
             className="text-decoration-none text-muted w-100"
