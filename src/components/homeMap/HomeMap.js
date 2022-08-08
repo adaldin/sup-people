@@ -5,7 +5,22 @@ function HomeMap({ center, zoom, children }) {
   const ref = useRef();
 
   useEffect(() => {
-    setMap(new window.google.maps.Map(ref.current, { mapId: mapID }));
+    setMap(
+      new window.google.maps.Map(ref.current, {
+        mapId: mapID,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: true,
+        streetViewControlOptions: {
+          position: window.google.maps.ControlPosition.LEFT_TOP,
+        },
+        overviewMapControl: false,
+        rotateControl: false,
+        panControl: false,
+        zoomControl: false,
+        fullscreenControl: false,
+      })
+    );
   }, []);
 
   if (map) {
@@ -14,7 +29,7 @@ function HomeMap({ center, zoom, children }) {
   }
 
   return (
-    <div ref={ref} style={{ height: "80vh" }} id="map">
+    <div ref={ref} style={{ height: "90vh" }} id="map">
       {React.Children.map(children, (child) =>
         React.cloneElement(child, { map })
       )}

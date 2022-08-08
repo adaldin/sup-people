@@ -2,6 +2,7 @@ import { Wrapper } from "@googlemaps/react-wrapper";
 import HomeMap from "./HomeMap.js";
 import { mapKey } from "../../config.js";
 import Marker from "./Marker";
+import InfoWindow from "./InfoWindow.js";
 
 function HomeMapWrapper() {
   const center = { lat: 41.565253, lng: 2.521855 };
@@ -11,15 +12,13 @@ function HomeMapWrapper() {
     { lat: 41.57028, lng: 2.53375 },
   ];
 
-  function handleClick() {
-    console.log("marker clicked");
-  }
-
   return (
     <Wrapper apiKey={mapKey}>
       <HomeMap center={center} zoom={12}>
         {positions.map((position, index) => (
-          <Marker key={index} position={position} handleClick={handleClick} />
+          <Marker key={index} position={position}>
+            <InfoWindow />
+          </Marker>
         ))}
       </HomeMap>
     </Wrapper>

@@ -29,10 +29,10 @@ function PaddleTripsList() {
   useEffect(() => {
     async function initContext() {
       if (supTrips.length === 0) {
-        let init = await initSupTrips(supTripsFirestore);
+        await initSupTrips(supTripsFirestore);
       }
     }
-    initContext();
+    initContext(); // eslint-disable-next-line
   }, [supTripsFirestore]);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ function PaddleTripsList() {
 
   function handleMapList() {
     setOpenMap((prevOpen) => !prevOpen);
-    const latLngs = getAllTripsEntryPoints(upcomingTrips);
+    getAllTripsEntryPoints(upcomingTrips);
   }
   return (
     <Row className="gap-3 p-3 mb-5">
