@@ -7,6 +7,7 @@ import { getAllTripsEntryPoints } from "../../services/mapsService";
 import useSupTrips from "../../context/SupTripsContext";
 import Splash from "../splash/Splash";
 import Button from "react-bootstrap/Button";
+import HomeMapWrapper from "../homeMap/HomeMapWrapper";
 
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
@@ -68,7 +69,7 @@ function PaddleTripsList() {
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        <div>mapa component</div>
+        <HomeMapWrapper />
       ) : (
         upcomingTrips.map((item, index) => (
           <Link
