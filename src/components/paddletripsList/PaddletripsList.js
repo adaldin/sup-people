@@ -61,8 +61,7 @@ function PaddleTripsList() {
 
   function handleMapList() {
     setOpenMap((prevOpen) => !prevOpen);
-    const latLng = getAllTripsEntryPoints(upcomingTrips);
-    console.log(latLng);
+    const latLngs = getAllTripsEntryPoints(upcomingTrips);
   }
   return (
     <Row className="gap-3 p-3 mb-5">
