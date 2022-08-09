@@ -8,12 +8,6 @@ function HomeMapWrapper({ upcomingTrips }) {
   const [center, setCenter] = useState({});
   const [zoom, setZoom] = useState(0);
 
-  // const positions = [
-  //   { lat: 41.567151, lng: 2.521516 },
-  //   { lat: 41.568281, lng: 2.529608 },
-  //   { lat: 41.57028, lng: 2.53375 },
-  // ];
-
   useEffect(() => {
     const options = {
       enableHighAccuracy: true,
