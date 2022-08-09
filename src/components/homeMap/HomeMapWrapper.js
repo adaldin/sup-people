@@ -3,10 +3,13 @@ import HomeMap from "./HomeMap.js";
 import { mapKey } from "../../config.js";
 import Marker from "./Marker";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-function HomeMapWrapper({ upcomingTrips }) {
+function HomeMapWrapper() {
   const [center, setCenter] = useState({});
   const [zoom, setZoom] = useState(0);
+  const { state } = useLocation();
+  const { upcomingTrips } = state;
 
   useEffect(() => {
     const options = {
