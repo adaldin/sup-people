@@ -17,15 +17,27 @@ function HomeMap({ center, zoom, children }) {
         overviewMapControl: false,
         rotateControl: false,
         panControl: false,
-        zoomControl: false,
+        zoomControl: true,
         fullscreenControl: false,
       })
     );
   }, []);
 
   if (map) {
-    map.setCenter(center);
-    map.setZoom(zoom);
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        let initialLocation = new window.google.maps.LatLng(
+          position.coords.latitude,
+          position.coords.longitude
+        );
+        map.setCenter(initialLocation);
+        map.setZoom(13);
+      },
+      function (positionError) {
+        map.setCenter(new window.google.maps.LatLng(41.390205, 2.154007));
+        map.setZoom(10);
+      }
+    );
   }
 
   return (

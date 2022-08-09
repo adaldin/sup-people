@@ -62,8 +62,8 @@ function PaddleTripsList() {
 
   function handleMapList() {
     setOpenMap((prevOpen) => !prevOpen);
-    getAllTripsEntryPoints(upcomingTrips);
   }
+
   return (
     <Row className="gap-3 p-3 mb-5">
       {loadingSupTrips ? (
