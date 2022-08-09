@@ -1,8 +1,8 @@
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
-import { getUserName } from "../../services/usersService";
+// import { getUserName } from "../../services/usersService";
 import "../../global.css";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 function PaddleTripsItem({
   supTripName,
@@ -11,18 +11,18 @@ function PaddleTripsItem({
   supTripHour,
   supTripLocality,
 }) {
-  useEffect(() => {
-    let name;
-    function transformEmailToName() {
-      if (atendees !== undefined) {
-        atendees.map(async (atendee) => {
-          name = await getUserName(atendee);
-          return name;
-        });
-      }
-    }
-    transformEmailToName();
-  }, []);
+  // useEffect(() => {
+  //   let name;
+  //   function transformEmailToName() {
+  //     if (atendees !== undefined) {
+  //       atendees.map(async (atendee) => {
+  //         name = await getUserName(atendee);
+  //         return name;
+  //       });
+  //     }
+  //   }
+  //   transformEmailToName();
+  // }, []);
 
   return (
     <Card className="borders p-1 bg-light bg-opacity-50 shadow-sm card__container">

@@ -9,35 +9,27 @@ function HomeMap({ center, zoom, children }) {
       new window.google.maps.Map(ref.current, {
         mapId: mapID,
         mapTypeControl: false,
-        scaleControl: false,
+        scaleControl: true,
         streetViewControl: true,
         streetViewControlOptions: {
           position: window.google.maps.ControlPosition.LEFT_TOP,
         },
         overviewMapControl: false,
         rotateControl: false,
-        panControl: false,
-        zoomControl: true,
+        zoomControl: false,
+        zoomControlOptions: {
+          position: window.google.maps.ControlPosition.RIGHT_CENTER,
+        },
         fullscreenControl: false,
+        gestureHandling: "greedy",
       })
     );
   }, []);
 
   if (map) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        let initialLocation = new window.google.maps.LatLng(
-          position.coords.latitude,
-          position.coords.longitude
-        );
-        map.setCenter(initialLocation);
-        map.setZoom(13);
-      },
-      function (positionError) {
-        map.setCenter(new window.google.maps.LatLng(41.390205, 2.154007));
-        map.setZoom(10);
-      }
-    );
+    // let initialLocation = new window.google.maps.LatLng(center.lat, center.lng);
+    map.setCenter(new window.google.maps.LatLng(center.lat, center.lng));
+    map.setZoom(zoom);
   }
 
   return (

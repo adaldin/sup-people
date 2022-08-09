@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
 import { getSupTrips } from "../../services/APIService";
-import { getAllTripsEntryPoints } from "../../services/mapsService";
 import useSupTrips from "../../context/SupTripsContext";
 import Splash from "../splash/Splash";
 import Button from "react-bootstrap/Button";
@@ -69,7 +68,7 @@ function PaddleTripsList() {
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        <HomeMapWrapper />
+        <HomeMapWrapper upcomingTrips={upcomingTrips} />
       ) : (
         upcomingTrips.map((item, index) => (
           <Link

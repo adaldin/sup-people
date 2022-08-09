@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
-import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import useSupTrips from "../../context/SupTripsContext";
 
 function Marker({ position, map, id }) {
   const [marker, setMarker] = useState();
+  // custom hook to use context
+  const { supTrips } = useSupTrips();
 
   useEffect(() => {
     const svgMarker = {
@@ -13,8 +13,8 @@ function Marker({ position, map, id }) {
       fillOpacity: 1,
       strokeWeight: 1,
       strokeColor: "#fff",
-      scale: 2,
-      anchor: new window.google.maps.Point(15, 30),
+      scale: 3,
+      anchor: new window.google.maps.Point(10, 10),
     };
 
     setMarker(
@@ -25,10 +25,6 @@ function Marker({ position, map, id }) {
       })
     );
   }, []);
-  // <Link
-  // to={${id}}
-  // className="text-decoration-none text-muted w-100"
-  // key={index} />
 
   useEffect(() => {
     if (marker) {
@@ -36,7 +32,7 @@ function Marker({ position, map, id }) {
       marker.setPosition(position);
       const infowindow = new window.google.maps.InfoWindow({
         content: `<h3>Título</h3>${marker.position} 
-          <a href="http://localhost:3000/RhqKnZ6M12eLem7Bzqtk">Ver en home</a>
+          <a href="http://localhost:3000/${supTrips[id].id}">Ver en home</a>
         `,
       });
       marker.addListener("click", () => {
@@ -46,7 +42,7 @@ function Marker({ position, map, id }) {
           position: marker.position,
         });
       });
-    }
+    } // eslint-disable-next-line
   }, [marker]);
 
   return <div>marker</div>;
