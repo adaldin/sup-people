@@ -3,9 +3,10 @@ import HomeMap from "./HomeMap.js";
 import { mapKey } from "../../config.js";
 import Marker from "./Marker";
 import { useEffect, useState } from "react";
+import Loader from "./loader/Loader.js";
 
 function HomeMapWrapper({ upcomingTrips }) {
-  const [center, setCenter] = useState({});
+  const [center, setCenter] = useState();
   const [zoom, setZoom] = useState(0);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ function HomeMapWrapper({ upcomingTrips }) {
           ))}
         </HomeMap>
       ) : (
-        "Loading"
+        <Loader />
       )}
     </Wrapper>
   );

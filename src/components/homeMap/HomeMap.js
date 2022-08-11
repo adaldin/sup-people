@@ -27,7 +27,6 @@ function HomeMap({ center, zoom, children }) {
   }, []);
 
   if (map) {
-    // let initialLocation = new window.google.maps.LatLng(center.lat, center.lng);
     map.setCenter(new window.google.maps.LatLng(center.lat, center.lng));
     map.setZoom(zoom);
   }

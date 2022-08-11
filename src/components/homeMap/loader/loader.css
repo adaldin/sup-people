@@ -1,0 +1,15 @@
+.loader--container{
+    margin-top: 6rem;
+    animation:3s linear 3s normal forwards 2 fadein;
+
+    -webkit-animation:3s linear 0s normal forwards 1 fadein;
+    opacity:1
+}
+
+@keyframes fadein{
+    0%{opacity:0}
+    20%{opacity: 1;}
+    40%{opacity: 0;}
+    80%{opacity:1}
+    100%{opacity:0}
+}
