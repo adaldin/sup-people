@@ -15,7 +15,7 @@ function Header() {
     <Navbar expand="lg" className="mb-3 primary-bg-color shadow-sm p-0">
       <Container fluid>
         <Navbar.Brand
-          href="#"
+          href="http://localhost:3000/"
           className="d-flex justify-content-center align-items-end gap-2"
         >
           <div style={{ width: "20px" }}>

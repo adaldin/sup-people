@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem";
@@ -68,9 +68,8 @@ function PaddleTripsList() {
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        <Navigate to="/map" state={{ upcomingTrips }}></Navigate>
+        <HomeMapWrapper upcomingTrips={upcomingTrips} />
       ) : (
-        // <HomeMapWrapper upcomingTrips={upcomingTrips} />
         upcomingTrips.map((item, index) => (
           <Link
             to={`${item.id}`}
