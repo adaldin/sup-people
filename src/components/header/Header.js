@@ -12,7 +12,7 @@ import "../../global.css";
 function Header() {
   let expand = "lg";
   return (
-    <Navbar expand="lg" className="mb-3 primary-bg-color shadow-sm p-0">
+    <Navbar expand="lg" className="mb-0 primary-bg-color shadow-sm p-0">
       <Container fluid>
         <Navbar.Brand
           href="http://localhost:3000/"

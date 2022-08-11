@@ -2,7 +2,7 @@ import PaddleTripsList from "../components/paddletripsList/PaddletripsList";
 import Container from "react-bootstrap/Container";
 function Home() {
   return (
-    <Container>
+    <Container fluid>
       <PaddleTripsList />
     </Container>
   );

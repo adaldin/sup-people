@@ -64,7 +64,7 @@ function PaddleTripsList() {
   }
 
   return (
-    <Row className="gap-3 p-3 mb-5">
+    <Row className="gap-3 p-0 mb-5">
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
@@ -73,7 +73,7 @@ function PaddleTripsList() {
         upcomingTrips.map((item, index) => (
           <Link
             to={`${item.id}`}
-            className="text-decoration-none text-muted w-100"
+            className="text-decoration-none text-muted w-100 p-3"
             key={index}
           >
             <PaddleTripsItem {...item} />
