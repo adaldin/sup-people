@@ -1,5 +1,6 @@
 export const initialState = {
   supTrips: [],
+  upcomingSupTrips: [],
 };
 
 const supTripsReducer = (state, action) => {
@@ -8,7 +9,13 @@ const supTripsReducer = (state, action) => {
   switch (type) {
     case "INIT":
       console.log("INIT", payload);
-      return { supTrips: payload.supTrips };
+      return {
+        supTrips: payload.supTrips,
+        upcomingSupTrips: payload.upcomingSupTrips,
+      };
+    case "INIT_UPCOMINGS":
+      console.log("INIT_UPCOMINGS", payload);
+      return { upcomingSupTrips: payload.upcomingSupTrips };
     case "ADD_TRIP":
       console.log("ADD_TRIP", payload);
       return { ...state, supTrips: payload.supTrips };

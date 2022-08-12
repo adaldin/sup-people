@@ -4,10 +4,13 @@ import { mapKey } from "../../config.js";
 import Marker from "./Marker";
 import { useEffect, useState } from "react";
 import Loader from "./loader/Loader.js";
+import useSupTrips from "../../context/SupTripsContext";
 
 function HomeMapWrapper({ upcomingTrips }) {
   const [center, setCenter] = useState();
   const [zoom, setZoom] = useState(0);
+  // custom hook to use context
+  const { upcomingSupTrips } = useSupTrips();
 
   useEffect(() => {
     const options = {
@@ -41,7 +44,7 @@ function HomeMapWrapper({ upcomingTrips }) {
     <Wrapper apiKey={mapKey}>
       {center ? (
         <HomeMap center={center} zoom={zoom}>
-          {upcomingTrips.map((trip, index) => (
+          {upcomingSupTrips.map((trip, index) => (
             <Marker
               key={index}
               position={trip.coordinates.entryPoint}

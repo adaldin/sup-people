@@ -11,10 +11,9 @@ import HomeMapWrapper from "../homeMap/HomeMapWrapper";
 function PaddleTripsList() {
   const [supTripsFirestore, setSupTripsFirestore] = useState([]);
   const [loadingSupTrips, setLoadingSupTrips] = useState(true);
-  const [upcomingTrips, setUpcomingTrips] = useState([]);
   const [openMap, setOpenMap] = useState(false);
   // custom hook to use context
-  const { supTrips, initSupTrips } = useSupTrips();
+  const { supTrips, initSupTrips, upcomingSupTrips } = useSupTrips();
 
   useEffect(() => {
     async function getData() {
@@ -31,33 +30,8 @@ function PaddleTripsList() {
         await initSupTrips(supTripsFirestore);
       }
     }
-    initContext(); // eslint-disable-next-line
+    initContext();
   }, [supTripsFirestore]);
-
-  useEffect(() => {
-    function filterFromToday() {
-      let dateToday = new Date()
-        .toLocaleString("en-GB", {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        })
-        .split(",")[0];
-
-      let fromTodayTrips = supTrips.filter(
-        (trip) => trip.supTripDate >= dateToday
-      );
-
-      const sortedSupTrips = fromTodayTrips.sort((a, b) => {
-        const newA = a.supTripDate.split("/").reverse().join("-");
-        const newB = b.supTripDate.split("/").reverse().join("-");
-        return +new Date(newA) - +new Date(newB);
-      });
-
-      setUpcomingTrips(sortedSupTrips);
-    }
-    filterFromToday();
-  }, [supTrips]);
 
   function handleMapList() {
     setOpenMap((prevOpen) => !prevOpen);
@@ -68,9 +42,9 @@ function PaddleTripsList() {
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
-        <HomeMapWrapper upcomingTrips={upcomingTrips} />
+        <HomeMapWrapper />
       ) : (
-        upcomingTrips.map((item, index) => (
+        upcomingSupTrips.map((item, index) => (
           <Link
             to={`${item.id}`}
             className="text-decoration-none text-muted w-100 p-3"

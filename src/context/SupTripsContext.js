@@ -9,13 +9,59 @@ export const SupTripProvider = ({ children }) => {
   const [state, dispatch] = useReducer(supTripReducer, initialState);
 
   const initSupTrips = (APISupTrips) => {
+    let dateToday = new Date()
+      .toLocaleString("en-GB", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .split(",")[0];
+
+    let upcomingTripsUnorderer = APISupTrips.filter(
+      (trip) => trip.supTripDate >= dateToday
+    );
+
+    const updatedUpcomingTrips = upcomingTripsUnorderer.sort((a, b) => {
+      const newA = a.supTripDate.split("/").reverse().join("-");
+      const newB = b.supTripDate.split("/").reverse().join("-");
+      return +new Date(newA) - +new Date(newB);
+    });
+
     dispatch({
       type: "INIT",
       payload: {
         supTrips: APISupTrips,
+        upcomingSupTrips: updatedUpcomingTrips,
       },
     });
   };
+
+  // const initUpcomings = (state) => {
+  //   let dateToday = new Date()
+  //     .toLocaleString("en-GB", {
+  //       year: "numeric",
+  //       month: "2-digit",
+  //       day: "2-digit",
+  //     })
+  //     .split(",")[0];
+
+  //   let upcomingTripsUnorderer = state.supTrips.filter(
+  //     (trip) => trip.supTripDate >= dateToday
+  //   );
+
+  //   const updatedUpcomingTrips = upcomingTripsUnorderer.sort((a, b) => {
+  //     const newA = a.supTripDate.split("/").reverse().join("-");
+  //     const newB = b.supTripDate.split("/").reverse().join("-");
+  //     return +new Date(newA) - +new Date(newB);
+  //   });
+
+  //   dispatch({
+  //     type: "INIT_UPCOMINGS",
+  //     payload: {
+  //       upcomingSupTrips: updatedUpcomingTrips,
+  //     },
+  //   });
+  // };
 
   const addSupTrip = (supTrip) => {
     const updatedSupTrips = state.supTrips.concat(supTrip);
@@ -54,6 +100,7 @@ export const SupTripProvider = ({ children }) => {
 
   const value = {
     supTrips: state.supTrips,
+    upcomingSupTrips: state.upcomingSupTrips,
     initSupTrips,
     addSupTrip,
     removeSupTrip,
