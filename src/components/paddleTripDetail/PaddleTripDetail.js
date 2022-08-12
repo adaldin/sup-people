@@ -11,25 +11,38 @@ import Badge from "react-bootstrap/Badge";
 
 function PaddleTripDetail() {
   const { id } = useParams();
-  const { supTrips } = useSupTrips();
+  const { upcomingSupTrips } = useSupTrips();
   const [singleSupTrip, setSingleSupTrip] = useState({});
+  const [loadingSingleTrip, setLoadingSingleTrip] = useState(true);
 
   useEffect(() => {
     function getSingleSupTrip() {
-      const supTrip = supTrips.find((e) => e.id === id);
-      console.log(supTrip[" atendees"].length);
+      let upcomingTripsLocal = [];
+
+      if (upcomingSupTrips.length !== 0) {
+        upcomingTripsLocal = [...upcomingSupTrips];
+        localStorage.setItem(
+          "upcomingSupTrips",
+          JSON.stringify(upcomingSupTrips)
+        );
+      } else {
+        upcomingTripsLocal = JSON.parse(
+          localStorage.getItem("upcomingSupTrips")
+        );
+      }
+      const supTrip = upcomingTripsLocal.find((e) => e.id === id);
       setSingleSupTrip(supTrip);
+      setLoadingSingleTrip(false);
     }
     getSingleSupTrip();
   }, []);
-
   return (
     <Container className="mb-5">
-      {singleSupTrip === undefined ? (
+      {loadingSingleTrip ? (
         <Loader />
       ) : (
         <Row>
-          <Col xs={12} className=" bg-warning">
+          <Col xs={12} className="bg-info bg-gradient">
             <div className="text-secondary d-flex align-items-baseline justify-content-between gap-2 ">
               <Weather coordinates={singleSupTrip.coordinates.entryPoint} />
             </div>
@@ -44,8 +57,11 @@ function PaddleTripDetail() {
           >
             <div className="d-flex">
               <Button
-                variant="outline-dark"
-                className="btn-sm"
+                className="btn-sm rounded-pill"
+                style={{
+                  backgroundColor: "#2C9BB3",
+                  border: "1px solid #1D859B",
+                }}
                 // onClick={handleFeature}
               >
                 <svg
@@ -62,7 +78,13 @@ function PaddleTripDetail() {
               </Button>
             </div>
             <div className="d-flex">
-              <Button variant="outline-dark" className="btn-sm">
+              <Button
+                className="btn-sm rounded-pill"
+                style={{
+                  backgroundColor: "#2C9BB3",
+                  border: "1px solid #1D859B",
+                }}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -79,8 +101,11 @@ function PaddleTripDetail() {
             </div>
             <div className="d-flex">
               <Button
-                variant="outline-dark"
-                className="btn-sm"
+                className="btn-sm rounded-pill"
+                style={{
+                  backgroundColor: "#2C9BB3",
+                  border: "1px solid #1D859B",
+                }}
                 // onClick={handleFeature}
               >
                 <svg
@@ -107,20 +132,46 @@ function PaddleTripDetail() {
             xs={12}
             className="d-flex flex-column justify-content-start align-content-baseline gap-1 p-2"
           >
-            <p className="my-0 fw-bold">Atendees</p>
+            <p className="my-0 fw-bold">People on this trip</p>
             <div className="d-flex gap-2">
               <div>
-                <Badge pill bg="dark">
-                  {singleSupTrip[" atendees"].length}
+                <Badge pill bg="">
+                  {singleSupTrip.atendees.length}
                 </Badge>
               </div>
               <p className="fw-light">
-                {singleSupTrip[" atendees"].map((atendee) => atendee)}
+                {singleSupTrip.atendees.map((atendee) => atendee)}
               </p>
             </div>
           </Col>
           <Col xs={12} className="p-2">
             {singleSupTrip.supTripDescription}
+          </Col>
+
+          <Col xs={12}>
+            {/* si creó el el trip button disabled, sino JOIN to this trip */}
+            <div className="d-flex justify-content-center align-items-center p-2 ">
+              <Button
+                className="rounded-pill fw-bold"
+                style={{
+                  backgroundColor: "#2C9BB3",
+                  border: "1px solid #1D859B",
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-emoji-sunglasses"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M4.968 9.75a.5.5 0 1 0-.866.5A4.498 4.498 0 0 0 8 12.5a4.5 4.5 0 0 0 3.898-2.25.5.5 0 1 0-.866-.5A3.498 3.498 0 0 1 8 11.5a3.498 3.498 0 0 1-3.032-1.75zM7 5.116V5a1 1 0 0 0-1-1H3.28a1 1 0 0 0-.97 1.243l.311 1.242A2 2 0 0 0 4.561 8H5a2 2 0 0 0 1.994-1.839A2.99 2.99 0 0 1 8 6c.393 0 .74.064 1.006.161A2 2 0 0 0 11 8h.438a2 2 0 0 0 1.94-1.515l.311-1.242A1 1 0 0 0 12.72 4H10a1 1 0 0 0-1 1v.116A4.22 4.22 0 0 0 8 5c-.35 0-.69.04-1 .116z" />
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-1 0A7 7 0 1 0 1 8a7 7 0 0 0 14 0z" />
+                </svg>{" "}
+                Únete
+              </Button>
+            </div>
           </Col>
         </Row>
       )}

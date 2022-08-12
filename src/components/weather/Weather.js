@@ -30,7 +30,7 @@ function Weather({ coordinates }) {
     <>
       {loadedWeather ? (
         <div className="d-flex align-items-baseline">
-          <small className="text-dark fw-lighter">
+          <small className="text-light fw-regular">
             Current weather in {currentWeather.name} →
           </small>
           <div style={{ width: "30px" }}>

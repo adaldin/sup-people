@@ -4,7 +4,7 @@ import useSupTrips from "../../context/SupTripsContext";
 function Marker({ position, map, id }) {
   const [marker, setMarker] = useState();
   // custom hook to use context
-  const { supTrips } = useSupTrips();
+  const { upcomingSupTrips } = useSupTrips();
 
   useEffect(() => {
     const svgMarker = {
@@ -38,9 +38,9 @@ function Marker({ position, map, id }) {
       marker.setMap(map);
       marker.setPosition(position);
       const infowindow = new window.google.maps.InfoWindow({
-        content: `<h4>${supTrips[id].supTripName}</h4>
-        <small><i class="bi bi-calendar-check"></i> ${supTrips[id].supTripDate} - <i class="bi bi-clock-history"></i> ${supTrips[id].supTripHour}hs</small><br>
- <a href="http://localhost:3000/${supTrips[id].id}" style="text-decoration:none;#2C9BB3:">Conoce los detalles</a>
+        content: `<h4>${upcomingSupTrips[id].supTripName}</h4>
+        <small><i class="bi bi-calendar-check"></i> ${upcomingSupTrips[id].supTripDate} - <i class="bi bi-clock-history"></i> ${upcomingSupTrips[id].supTripHour}hs</small><br>
+ <a href="http://localhost:3000/${upcomingSupTrips[id].id}" style="text-decoration:none;#2C9BB3:">Conoce los detalles</a>
         `,
       });
       marker.addListener("click", () => {

@@ -58,14 +58,17 @@ function PaddleTripsList() {
         ""
       ) : (
         <div className="d-flex fixed-bottom translate-middle-y mb-5 justify-content-center">
-          <Button onClick={handleMapList} className="btn--primary shadow-sm">
+          <Button
+            onClick={handleMapList}
+            className="btn--primary shadow rounded-pill"
+          >
             {openMap ? (
               <div className="p-1">
-                <small className="font-body ">List</small>
+                <small className="font-body ">Lista</small>
               </div>
             ) : (
               <div className="p-1">
-                <small className="font-body">Map</small>
+                <small className="font-body">Mapa</small>
               </div>
             )}
           </Button>

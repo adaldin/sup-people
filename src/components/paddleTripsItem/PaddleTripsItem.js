@@ -74,21 +74,14 @@ function PaddleTripsItem({
             </small>
           </div>
           <div className="d-flex  justify-content-start flex-column">
-            <small className="fw-bold">Atendees</small>
+            <small className="fw-bold">People joined</small>
             <div className="d-flex">
               <div>
                 <Badge pill className="primary-bg-color text-white">
-                  {/* {atendees !== undefined
-                    ? atendees.map((_atendee, i) => i + 1)
-                    : ""} */}
+                  {atendees.length}
                 </Badge>
               </div>
-              <p className="fw-light">
-                {/* {atendees !== undefined
-                  ? atendees.map((atendee) => atendee)
-                  : ""} */}
-                ,
-              </p>
+              <p className="fw-light">{atendees.map((atendee) => atendee)},</p>
             </div>
           </div>
         </div>
