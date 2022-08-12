@@ -17,7 +17,7 @@ function PaddleTripDetail() {
   useEffect(() => {
     function getSingleSupTrip() {
       const supTrip = supTrips.find((e) => e.id === id);
-      console.log(supTrip.coordinates.entryPoint);
+      console.log(supTrip[" atendees"].length);
       setSingleSupTrip(supTrip);
     }
     getSingleSupTrip();
@@ -111,12 +111,11 @@ function PaddleTripDetail() {
             <div className="d-flex gap-2">
               <div>
                 <Badge pill bg="dark">
-                  3{/* {singleSupTrip.atendees.map((_atendee, i) => i + 1)} */}
+                  {singleSupTrip[" atendees"].length}
                 </Badge>
               </div>
               <p className="fw-light">
-                ds@cds.com
-                {/* {singleSupTrip.atendees.map((atendee) => atendee)} */}
+                {singleSupTrip[" atendees"].map((atendee) => atendee)}
               </p>
             </div>
           </Col>
@@ -126,15 +125,6 @@ function PaddleTripDetail() {
         </Row>
       )}
     </Container>
-
-    // <div>
-    //   aqui todaytrip ==={id}
-    //   {/* {loading ? (
-    //     <p>Loading...</p>
-    //   ) : (
-    //     today.find((i) => (i.id == id ? <p>{i.supTripName}</p> : "notFounded"))
-    //   )} */}
-    // </div>
   );
 }
 export default PaddleTripDetail;

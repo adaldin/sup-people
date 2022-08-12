@@ -38,8 +38,9 @@ function Marker({ position, map, id }) {
       marker.setMap(map);
       marker.setPosition(position);
       const infowindow = new window.google.maps.InfoWindow({
-        content: `<h3>${supTrips[id].supTripName}</h3>${marker.position} 
-          <a href="http://localhost:3000/${supTrips[id].id}">Ver detalles</a>
+        content: `<h4>${supTrips[id].supTripName}</h4>
+        <small><i class="bi bi-calendar-check"></i> ${supTrips[id].supTripDate} - <i class="bi bi-clock-history"></i> ${supTrips[id].supTripHour}hs</small><br>
+ <a href="http://localhost:3000/${supTrips[id].id}" style="text-decoration:none;#2C9BB3:">Conoce los detalles</a>
         `,
       });
       marker.addListener("click", () => {

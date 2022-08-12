@@ -16,7 +16,7 @@ function InfoWindow({ position, map }) {
     infoWindow.setPosition(position);
   }
 
-  return <div>hola soy la info</div>;
+  return <div> info</div>;
 }
 
 export default InfoWindow;
