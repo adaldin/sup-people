@@ -1,4 +1,4 @@
-import logo from "../../assets/board-blue.svg";
+import logo from "../../assets/board-yellow.svg";
 import "./splash.css";
 function Splash() {
   return (
