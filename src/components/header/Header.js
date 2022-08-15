@@ -10,9 +10,9 @@ import blueLogo from "../../assets/board-blue.svg";
 import "../../global.css";
 
 function Header() {
-  let expand = "lg";
+  let expand = "md";
   return (
-    <Navbar expand="lg" className="mb-0 primary-bg-color shadow-sm p-0">
+    <Navbar expand="md" className="mb-0 primary-bg-color shadow-sm p-0">
       <Container fluid>
         <Navbar.Brand
           href="http://localhost:3000/"

@@ -34,7 +34,7 @@ function PaddleTripDetail() {
       setSingleSupTrip(supTrip);
       setLoadingSingleTrip(false);
     }
-    getSingleSupTrip();
+    getSingleSupTrip(); // eslint-disable-next-line
   }, []);
   return (
     <Container className="mb-5">
