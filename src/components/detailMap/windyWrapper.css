@@ -12,3 +12,7 @@
 #windy #logo-wrapper #logo {
     left: 1rem;
 }
+#progress-bar {
+     overflow:visible;
+     width: 80%;
+}
