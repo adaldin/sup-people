@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useSupTrips from "../../context/SupTripsContext";
 import Weather from "../weather/Weather";
 import Loader from "../homeMap/loader/Loader";
+import WindyWrapper from "../detailMap/WindyWrapper";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -125,8 +126,8 @@ function PaddleTripDetail() {
           <Col xs={12} lg={2}>
             <small>Valoraciones: {singleSupTrip.supTripRate}</small>
           </Col>
-          <Col xs={12} className=" my-1 placeholder col-12 bg-warning">
-            <div style={{ width: "100%", heigth: "100px" }}>aqui windy</div>
+          <Col xs={12} className=" my-1 p-0 col-12 opacity-100">
+            <WindyWrapper coordinates={singleSupTrip.coordinates.entryPoint} />
           </Col>
           <Col
             xs={12}
