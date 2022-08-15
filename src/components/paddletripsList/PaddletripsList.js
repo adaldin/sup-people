@@ -30,7 +30,7 @@ function PaddleTripsList() {
         await initSupTrips(supTripsFirestore);
       }
     }
-    initContext();
+    initContext(); // eslint-disable-next-line
   }, [supTripsFirestore]);
 
   function handleMapList() {
