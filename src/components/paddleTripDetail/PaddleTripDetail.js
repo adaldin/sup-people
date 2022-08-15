@@ -136,7 +136,7 @@ function PaddleTripDetail() {
             <p className="my-0 fw-bold">People on this trip</p>
             <div className="d-flex gap-2">
               <div>
-                <Badge pill bg="">
+                <Badge pill bg="info">
                   {singleSupTrip.atendees.length}
                 </Badge>
               </div>
@@ -146,6 +146,7 @@ function PaddleTripDetail() {
             </div>
           </Col>
           <Col xs={12} className="p-2">
+            <p className="my-0 fw-bold">Description</p>
             {singleSupTrip.supTripDescription}
           </Col>
 

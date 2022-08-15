@@ -25,7 +25,6 @@ function Weather({ coordinates }) {
     }
     getWeather();
   }, [coordinates]);
-
   return (
     <>
       {loadedWeather ? (
@@ -38,8 +37,11 @@ function Weather({ coordinates }) {
               className="img-fluid"
               alt={`weather in ${currentWeather.name}`}
               src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}.png`}
-            />
+            />{" "}
           </div>
+          <small className="text-light fw-regular">
+            {currentWeather.weather[0].main}
+          </small>
         </div>
       ) : (
         <Spinner animation="border" />
