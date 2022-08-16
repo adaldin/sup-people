@@ -1,6 +1,6 @@
 // React
 import { createContext, useContext, useEffect, useState } from "react";
-import { auth } from "../components/firebase/firebase.js";
+import { auth } from "../firebase/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 
 // Context
-export const authContext = createContext();
+export const AuthContext = createContext();
 
 // Provider
 export function AuthProvider({ children }) {
@@ -35,9 +35,9 @@ export function AuthProvider({ children }) {
     return () => unsubscribe();
   }, []);
   return (
-    <authContext.Provider value={{ signUp, login, user, logout, loading }}>
+    <AuthContext.Provider value={{ signUp, login, user, logout, loading }}>
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 }
 
@@ -45,7 +45,7 @@ export default AuthProvider;
 
 // useContext Hook
 export const useAuth = () => {
-  const context = useContext(authContext);
+  const context = useContext(AuthContext);
   if (!context) throw new Error("There is no Auth provider");
   return context;
 };
