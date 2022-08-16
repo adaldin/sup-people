@@ -5,12 +5,7 @@ function ProtectedRoute({ children }) {
   const { user, loading } = useAuth();
 
   if (loading) return <p>Loading</p>;
-  if (!user)
-    return (
-      <Navigate to="/profile" replace>
-        ProtectedRoute
-      </Navigate>
-    );
+  if (!user) return <Navigate to="/profile">ProtectedRoute</Navigate>;
 
   return <>{children}</>;
 }

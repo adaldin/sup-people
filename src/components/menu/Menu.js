@@ -1,10 +1,11 @@
-// React
 import { Link } from "react-router-dom";
-// Bootstrap
+import { useAuth } from "../../context/AuthContext.js";
 import Nav from "react-bootstrap/Nav";
 import "./menu.css";
 
 function Menu() {
+  const { user } = useAuth();
+
   return (
     <Nav
       fill
@@ -63,7 +64,7 @@ function Menu() {
       <Nav.Item>
         <Nav.Link
           as={Link}
-          to="/profile"
+          to={user ? "/profile/userProfile" : "/profile"}
           eventKey="profile"
           className="menu--link d-flex flex-column justify-content-center align-items-center"
         >

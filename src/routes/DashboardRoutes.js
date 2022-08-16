@@ -6,7 +6,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import Header from "../components/header/Header.js";
 import PaddleTripDetail from "../components/paddleTripDetail/PaddleTripDetail.js";
 import Menu from "../components/menu/Menu";
-import Login from "../components/login/Login";
+import UserProfile from "../components/userProfile/UserProfile";
+import Register from "../components/register/Register";
 
 export const DashboardRoutes = () => {
   return (
@@ -17,12 +18,13 @@ export const DashboardRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/:id" element={<PaddleTripDetail />} />
           <Route path="/explore" element={<Explore />} />
-          <Route path="/profile" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/register" element={<Register />} />
           <Route
             path="/profile/userProfile"
             element={
               <ProtectedRoute>
-                <Profile />
+                <UserProfile />
               </ProtectedRoute>
             }
           />
