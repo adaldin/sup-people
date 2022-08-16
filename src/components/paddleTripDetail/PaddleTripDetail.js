@@ -57,12 +57,13 @@ function PaddleTripDetail() {
             lg={6}
             className="d-flex p-2 gap-1 justify-content-between"
           >
-            <div className="d-flex">
+            <Col className="d-grid">
               <Button
-                className="btn-sm rounded-pill shadow fw-bold"
+                className="btn-sm rounded-pill shadow-sm fw-bold"
                 style={{
-                  backgroundColor: "#2C9BB3",
+                  backgroundColor: "transparent",
                   border: "1px solid #1D859B",
+                  color: "#2C9BB3",
                 }}
                 // onClick={handleFeature}
               >
@@ -78,12 +79,13 @@ function PaddleTripDetail() {
                 </svg>{" "}
                 Like
               </Button>
-            </div>
-            <div className="d-flex">
+            </Col>
+            <Col className="d-grid">
               <Button
-                className="btn-sm rounded-pill shadow fw-bold"
+                className="btn-sm rounded-pill shadow-sm fw-bold"
                 style={{
-                  backgroundColor: "#2C9BB3",
+                  backgroundColor: "transparent",
+                  color: "#2C9BB3",
                   border: "1px solid #1D859B",
                 }}
               >
@@ -100,12 +102,13 @@ function PaddleTripDetail() {
                 </svg>{" "}
                 Save
               </Button>
-            </div>
-            <div className="d-flex">
+            </Col>
+            <Col className="d-grid">
               <Button
-                className="btn-sm rounded-pill shadow fw-bold"
+                className="btn-sm rounded-pill shadow-sm fw-bold"
                 style={{
-                  backgroundColor: "#2C9BB3",
+                  backgroundColor: "transparent",
+                  color: "#2C9BB3",
                   border: "1px solid #1D859B",
                 }}
                 // onClick={handleFeature}
@@ -122,7 +125,7 @@ function PaddleTripDetail() {
                 </svg>{" "}
                 Share
               </Button>
-            </div>
+            </Col>
           </Col>
           <Col xs={12} lg={2}>
             <small>Valoraciones: {singleSupTrip.supTripRate}</small>
