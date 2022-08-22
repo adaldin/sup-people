@@ -27,18 +27,18 @@ function Register() {
     event.preventDefault();
     setRegisterError("");
     try {
-      await signUp(user.email, user.password);
+      await signUp(user.email, user.password, user.fName, user.lName);
       navigate("/profile/");
 
-      // Add a new document with a generated id.
-      const docRef = await addDoc(collection(db, "users"), {
-        email: user.email,
-        fname: user.fName,
-        lName: user.lName,
-        password: user.password,
-        timeStamp: new Date(),
-      });
-      console.log("Document written with ID: ", docRef.id);
+      //   // Add a new document with a generated id.
+      //   const docRef = await addDoc(collection(db, "users"), {
+      //     email: user.email,
+      //     fname: user.fName,
+      //     lName: user.lName,
+      //     password: user.password,
+      //     timeStamp: new Date(),
+      //   });
+      //   console.log("Document written with ID: ", docRef.id);
     } catch (error) {
       if (
         error.code === "auth/email-already-in-use" ||
