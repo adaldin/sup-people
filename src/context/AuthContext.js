@@ -19,7 +19,7 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   async function signUp(email, password, fName, lName) {
-    const data = await createUserWithEmailAndPassword(auth, email, password)
+    await createUserWithEmailAndPassword(auth, email, password)
       .then(async (credential) => {
         if (credential && credential.user) {
           const userData = {

@@ -9,15 +9,15 @@ import {
   where,
 } from "firebase/firestore";
 
-export async function getUserName(userEmail) {
-  let user = {};
+export async function getUserName(userUID) {
+  let userFName;
   try {
-    const users = query(collection(db, "users"));
-    user = query(users, where("email", "==", user));
-    console.log(user.data().fname);
+    const docRef = doc(db, "users", userUID);
+    const docSnap = await getDoc(docRef);
+    userFName = await docSnap.data().fName;
+    console.log(userFName);
   } catch (err) {
-    console.log("Firestore error: ", err);
-    return "";
+    console.log(err);
   }
-  return user.data().fname;
+  return userFName;
 }
