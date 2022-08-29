@@ -54,6 +54,7 @@ function PaddleTripsList() {
           </Link>
         ))
       )}
+
       {loadingSupTrips ? (
         ""
       ) : (

@@ -1,21 +1,17 @@
 import { db } from "../../firebase/firebase";
-import {
-  collection,
-  query,
-  getDoc,
-  addDoc,
-  deleteDoc,
-  doc,
-  where,
-} from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 
 export async function getUserName(userUID) {
   let userFName;
+
   try {
     const docRef = doc(db, "users", userUID);
     const docSnap = await getDoc(docRef);
-    userFName = await docSnap.data().fName;
-    console.log(userFName);
+    if (docSnap.exists()) {
+      userFName = await docSnap.data().user.fName;
+    } else {
+      console.log(`No data in db for user ${userUID}`);
+    }
   } catch (err) {
     console.log(err);
   }

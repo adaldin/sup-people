@@ -148,8 +148,10 @@ function PaddleTripDetail() {
                   {singleSupTrip.atendees.length}
                 </Badge>
               </div>
-              <p className="fw-light">
-                {singleSupTrip.atendees.map((atendee) => atendee)}
+              <p className="fw-light text-wrap text-break">
+                {singleSupTrip.atendees.map((atendee, i, atendees) =>
+                  i === atendees.length - 1 ? `${atendee}. ` : `${atendee}, `
+                )}
               </p>
             </div>
           </Col>

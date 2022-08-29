@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Badge from "react-bootstrap/Badge";
 import { getUserName } from "../../services/usersService";
 import "../../global.css";
-import { useEffect, useState } from "react";
 
 function PaddleTripsItem({
   supTripName,
@@ -11,19 +11,21 @@ function PaddleTripsItem({
   supTripHour,
   supTripLocality,
 }) {
-  const [atendeesUI, setAtendeesUI] = useState();
-
+  const [atendeesNames, setAtendeesNames] = useState([]);
   useEffect(() => {
-    function atendeesNames() {
-      const atendeesNames = atendees.map(async (uid) => {
-        const name = await getUserName(uid);
+    async function getAtendeesNames() {
+      let names = [];
+
+      atendees.forEach(async (atendeeUID) => {
+        const data = await getUserName(atendeeUID);
+        const name = await data;
+        names.push(name);
+        setAtendeesNames(names);
         return name;
       });
-      console.log(atendeesNames);
-      setAtendeesUI(atendeesNames);
     }
-    atendeesNames();
-  }, [atendees]);
+    getAtendeesNames();
+  }, []);
 
   return (
     <Card className="borders p-1 bg-light bg-opacity-50 shadow-sm card__container">
@@ -76,7 +78,7 @@ function PaddleTripsItem({
             </svg>
             <p className="font-subHeading mb-0 text-muted">{supTripHour}</p>
           </div>
-          <div className="d-flex  justify-content-start flex-column">
+          <div className="d-flex justify-content-start flex-column">
             <small className="fw-bold">People on this trip</small>
             <div className="d-flex gap-4">
               <div>
@@ -85,7 +87,13 @@ function PaddleTripsItem({
                 </Badge>
               </div>
               <p className="fw-light">
-                {atendees.map((atendee) => `${atendee} - `)}
+                {atendeesNames.length !== 0
+                  ? atendeesNames.map((atendeeName, i, atendeesNames) =>
+                      i === atendeesNames.length - 1
+                        ? `${atendeeName}. `
+                        : `${atendeeName}, `
+                    )
+                  : ""}
               </p>
             </div>
           </div>
