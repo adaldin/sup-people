@@ -12,6 +12,7 @@ function PaddleTripsItem({
   supTripLocality,
 }) {
   const [atendeesNames, setAtendeesNames] = useState([]);
+
   useEffect(() => {
     async function getAtendeesNames() {
       let names = [];

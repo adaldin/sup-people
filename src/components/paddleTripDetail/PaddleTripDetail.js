@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { getUserName } from "../../services/usersService";
 import useSupTrips from "../../context/SupTripsContext";
 import Weather from "../weather/Weather";
 import Loader from "../homeMap/loader/Loader";
@@ -14,6 +15,7 @@ function PaddleTripDetail() {
   const { id } = useParams();
   const { upcomingSupTrips } = useSupTrips();
   const [singleSupTrip, setSingleSupTrip] = useState({});
+  const [atendeesNames, setAtendeesNames] = useState([]);
   const [loadingSingleTrip, setLoadingSingleTrip] = useState(true);
 
   useEffect(() => {
@@ -37,6 +39,20 @@ function PaddleTripDetail() {
     }
     getSingleSupTrip(); // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    async function getAtendeesNames() {
+      let names = [];
+      singleSupTrip.atendees.forEach(async (atendeeUID) => {
+        const data = await getUserName(atendeeUID);
+        const name = await data;
+        names.push(name);
+        setAtendeesNames(names);
+        return name;
+      });
+    }
+    getAtendeesNames();
+  }, [singleSupTrip]);
 
   return (
     <Container className="mb-5">
@@ -149,9 +165,17 @@ function PaddleTripDetail() {
                 </Badge>
               </div>
               <p className="fw-light text-wrap text-break">
-                {singleSupTrip.atendees.map((atendee, i, atendees) =>
+                {atendeesNames.length !== 0
+                  ? atendeesNames.map((atendeeName, i, atendeesNames) =>
+                      i === atendeesNames.length - 1
+                        ? `${atendeeName}. `
+                        : `${atendeeName}, `
+                    )
+                  : ""}
+                {/* 
+                {atendeesName.map((atendee, i, atendees) =>
                   i === atendees.length - 1 ? `${atendee}. ` : `${atendee}, `
-                )}
+                )} */}
               </p>
             </div>
           </Col>

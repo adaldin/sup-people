@@ -49,13 +49,6 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.log(err);
     }
-
-    // const userRef = doc(db, "users");
-    // console.log(userRef);
-    // userRef.setDoc(user);
-    // // .catch((error) => {
-    // //   console.log(error.message);
-    // // });
   }
 
   async function login(email, password) {
@@ -73,6 +66,7 @@ export function AuthProvider({ children }) {
     });
     return () => unsubscribe();
   }, []);
+
   return (
     <AuthContext.Provider value={{ signUp, login, user, logout, loading }}>
       {children}
