@@ -26,7 +26,7 @@ function PaddleTripsItem({
       });
     }
     getAtendeesNames();
-  }, []);
+  }, [atendees]);
 
   return (
     <Card className="borders p-1 bg-light bg-opacity-50 shadow-sm card__container">
