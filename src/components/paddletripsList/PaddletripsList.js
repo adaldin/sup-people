@@ -37,7 +37,7 @@ function PaddleTripsList() {
   }
 
   return (
-    <Row className="gap-3 p-0 mb-5">
+    <Row className="gap-3 p-2 mb-5">
       {loadingSupTrips ? (
         <Splash />
       ) : openMap ? (
