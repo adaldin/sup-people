@@ -4,7 +4,6 @@ import { useAuth } from "../../context/AuthContext.js";
 import useSupTrips from "../../context/SupTripsContext";
 import { getUserName } from "../../services/usersService/index.js";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem.js";
-import { Link } from "react-router-dom";
 import { getSuptripsByUser } from "../../services/APIService/index.js";
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -29,9 +28,9 @@ function UserProfile() {
   }, [user.uid]);
 
   useEffect(() => {
-    const userSupTrips = JSON.parse(localStorage.getItem("userSupTrips"));
-    if (userSupTrips.length !== 0) {
-      setFilteredSupTrips(userSupTrips);
+    const userSupTripsMemory = JSON.parse(localStorage.getItem("userSupTrips"));
+    if (userSupTripsMemory !== null) {
+      setFilteredSupTrips(userSupTripsMemory);
     } else {
       const userSupTrips = getSuptripsByUser(supTrips, user.uid);
       setFilteredSupTrips(userSupTrips);
@@ -44,8 +43,15 @@ function UserProfile() {
     navigate("/profile");
   }
 
-  function handleDelete() {
-    console.log("delete");
+  function handleDelete(e, id) {
+    const updatedFilteredSuptrips = filteredSupTrips.filter(
+      (trips) => trips.id !== id
+    );
+    setFilteredSupTrips(updatedFilteredSuptrips);
+    localStorage.setItem(
+      "userSupTrips",
+      JSON.stringify(updatedFilteredSuptrips)
+    );
   }
 
   return (
@@ -78,18 +84,13 @@ function UserProfile() {
             </Col>
             <Col xs={12}>
               <div className="d-flex flex-column gap-2 p-2">
-                {filteredSupTrips.length !== 0 ? (
+                {filteredSupTrips !== null ? (
                   filteredSupTrips.map((paddleTrip, i) => (
-                    <Link
-                      to={`/${paddleTrip.id}`}
-                      className="text-decoration-none text-muted w-100 p-3"
-                      key={i}
-                    >
-                      <PaddleTripsItem
-                        {...paddleTrip}
-                        deleteTrip={handleDelete}
-                      />
-                    </Link>
+                    <PaddleTripsItem
+                      key={filteredSupTrips[i].id}
+                      {...paddleTrip}
+                      deleteTrip={handleDelete}
+                    />
                   ))
                 ) : (
                   <p className="text-muted">Add a new Route</p>
