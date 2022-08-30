@@ -43,13 +43,23 @@ function PaddleTripDetail() {
   useEffect(() => {
     async function getAtendeesNames() {
       let names = [];
-      singleSupTrip.atendees.forEach(async (atendeeUID) => {
-        const data = await getUserName(atendeeUID);
-        const name = await data;
-        names.push(name);
-        setAtendeesNames(names);
-        return name;
-      });
+      if (singleSupTrip.atendees !== undefined) {
+        try {
+          singleSupTrip.atendees.map(async (atendeeUID) => {
+            const data = await getUserName(atendeeUID);
+            const name = await data;
+            names.push(name);
+            // console.log(names);
+            setAtendeesNames(names);
+            return name;
+          });
+          console.log(names);
+          // setAtendeesNames(names);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      // console.log(names);
     }
     getAtendeesNames();
   }, [singleSupTrip]);

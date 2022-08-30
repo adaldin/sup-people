@@ -44,3 +44,10 @@ export async function deleteTrip(trip) {
     return [];
   }
 }
+
+export function getSuptripsByUser(suptrips, uid) {
+  const userSuptrips = suptrips.filter((suptrip) =>
+    suptrip.atendees.includes(uid)
+  );
+  return userSuptrips;
+}

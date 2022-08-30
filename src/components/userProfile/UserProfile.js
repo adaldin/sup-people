@@ -5,6 +5,7 @@ import useSupTrips from "../../context/SupTripsContext";
 import { getUserName } from "../../services/usersService/index.js";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem.js";
 import { Link } from "react-router-dom";
+import { getSuptripsByUser } from "../../services/APIService/index.js";
 // Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -13,11 +14,10 @@ import Button from "react-bootstrap/Button";
 
 function UserProfile() {
   const [userName, setUserName] = useState("");
+  const [filteredSupTrips, setFilteredSupTrips] = useState([]);
   const { user, logout, loading } = useAuth();
-  const { upcomingSupTrips } = useSupTrips();
-  const [userPaddleTrips, setUserPaddleTrips] = useState(
-    JSON.parse(localStorage.getItem("userPaddleTrips")) || []
-  );
+  const { supTrips } = useSupTrips();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,18 +29,9 @@ function UserProfile() {
   }, []);
 
   useEffect(() => {
-    function saveUpcomingTrips() {
-      console.log(upcomingSupTrips);
-      if (upcomingSupTrips) {
-        setUserPaddleTrips(upcomingSupTrips);
-        localStorage.setItem(
-          "userPaddleTrips",
-          JSON.stringify(upcomingSupTrips)
-        );
-      }
-    }
-    saveUpcomingTrips();
-  }, []);
+    const userSupTrips = getSuptripsByUser(supTrips, user.uid);
+    setFilteredSupTrips(userSupTrips);
+  }, [supTrips]);
 
   async function handleLogout() {
     await logout();
@@ -77,8 +68,8 @@ function UserProfile() {
             </Col>
             <Col xs={12}>
               <div className="d-flex flex-column gap-2 p-2">
-                {upcomingSupTrips.length !== 0 ? (
-                  upcomingSupTrips.map((paddleTrip, i) => (
+                {filteredSupTrips.length !== 0 ? (
+                  filteredSupTrips.map((paddleTrip, i) => (
                     <Link
                       to={`/${paddleTrip.id}`}
                       className="text-decoration-none text-muted w-100 p-3"

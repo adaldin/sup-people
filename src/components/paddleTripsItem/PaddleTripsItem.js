@@ -17,7 +17,7 @@ function PaddleTripsItem({
     async function getAtendeesNames() {
       let names = [];
 
-      atendees.forEach(async (atendeeUID) => {
+      atendees.map(async (atendeeUID) => {
         const data = await getUserName(atendeeUID);
         const name = await data;
         names.push(name);
