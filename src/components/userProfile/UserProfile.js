@@ -30,27 +30,22 @@ function UserProfile() {
 
   useEffect(() => {
     const userSupTrips = JSON.parse(localStorage.getItem("userSupTrips"));
-    if (userSupTrips) {
+    if (userSupTrips.length !== 0) {
       setFilteredSupTrips(userSupTrips);
     } else {
       const userSupTrips = getSuptripsByUser(supTrips, user.uid);
       setFilteredSupTrips(userSupTrips);
       localStorage.setItem("userSupTrips", JSON.stringify(userSupTrips));
     }
-  }, [supTrips, user.uid]);
-
-  useEffect(() => {
-    const userSupTrips = JSON.parse(localStorage.getItem("userSupTrips"));
-    if (userSupTrips) {
-      setFilteredSupTrips(userSupTrips);
-    } else {
-      setFilteredSupTrips(supTrips);
-    }
-  }, []);
+  }, [supTrips]);
 
   async function handleLogout() {
     await logout();
     navigate("/profile");
+  }
+
+  function handleDelete() {
+    console.log("delete");
   }
 
   return (
@@ -90,7 +85,10 @@ function UserProfile() {
                       className="text-decoration-none text-muted w-100 p-3"
                       key={i}
                     >
-                      <PaddleTripsItem {...paddleTrip} />
+                      <PaddleTripsItem
+                        {...paddleTrip}
+                        deleteTrip={handleDelete}
+                      />
                     </Link>
                   ))
                 ) : (

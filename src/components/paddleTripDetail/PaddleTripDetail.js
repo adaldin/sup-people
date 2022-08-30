@@ -49,17 +49,13 @@ function PaddleTripDetail() {
             const data = await getUserName(atendeeUID);
             const name = await data;
             names.push(name);
-            // console.log(names);
             setAtendeesNames(names);
             return name;
           });
-          console.log(names);
-          // setAtendeesNames(names);
         } catch (err) {
           console.error(err);
         }
       }
-      // console.log(names);
     }
     getAtendeesNames();
   }, [singleSupTrip]);
@@ -182,10 +178,6 @@ function PaddleTripDetail() {
                         : `${atendeeName}, `
                     )
                   : ""}
-                {/* 
-                {atendeesName.map((atendee, i, atendees) =>
-                  i === atendees.length - 1 ? `${atendee}. ` : `${atendee}, `
-                )} */}
               </p>
             </div>
           </Col>
