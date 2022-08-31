@@ -13,8 +13,9 @@ import Badge from "react-bootstrap/Badge";
 
 function PaddleTripDetail() {
   const { id } = useParams();
-  const { upcomingSupTrips } = useSupTrips();
+  const { upcomingSupTrips, updateSupTrip } = useSupTrips();
   const [singleSupTrip, setSingleSupTrip] = useState({});
+  const [likeSuptrip, setLikeSuptrip] = useState(false);
   const [atendeesNames, setAtendeesNames] = useState([]);
   const [loadingSingleTrip, setLoadingSingleTrip] = useState(true);
 
@@ -60,6 +61,28 @@ function PaddleTripDetail() {
     getAtendeesNames();
   }, [singleSupTrip]);
 
+  function handleLikes() {
+    setLikeSuptrip((prevLike) => !prevLike);
+    if (!likeSuptrip) {
+      setSingleSupTrip((prevSingleSuptrip) => {
+        return {
+          ...prevSingleSuptrip,
+          supTripRate: prevSingleSuptrip.supTripRate + 1,
+        };
+      });
+    } else {
+      setSingleSupTrip((prevSingleSuptrip) => {
+        return {
+          ...prevSingleSuptrip,
+          supTripRate: prevSingleSuptrip.supTripRate - 1,
+        };
+      });
+    }
+  }
+  useEffect(() => {
+    updateSupTrip(singleSupTrip);
+  }, [likeSuptrip, singleSupTrip, updateSupTrip]);
+
   return (
     <Container className="mb-5">
       {loadingSingleTrip ? (
@@ -87,7 +110,7 @@ function PaddleTripDetail() {
                   border: "1px solid #1D859B",
                   color: "#2C9BB3",
                 }}
-                // onClick={handleFeature}
+                onClick={handleLikes}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -221,6 +244,7 @@ function PaddleTripDetail() {
             {/* si creó él el trip button disabled, sino JOIN to this trip */}
             <div className="d-flex justify-content-center align-items-center p-2 ">
               <Button
+                // onClick={handleJoin}
                 className="rounded-pill fw-bold shadow w-100"
                 style={{
                   backgroundImage:
