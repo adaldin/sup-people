@@ -81,7 +81,7 @@ function PaddleTripDetail() {
   }
   useEffect(() => {
     updateSupTrip(singleSupTrip);
-  }, [likeSuptrip, singleSupTrip, updateSupTrip]);
+  }, [likeSuptrip, singleSupTrip]);
 
   return (
     <Container className="mb-5">
