@@ -9,22 +9,17 @@ export const SupTripProvider = ({ children }) => {
   const [state, dispatch] = useReducer(supTripReducer, initialState);
 
   const initSupTrips = (APISupTrips) => {
-    let dateToday = new Date()
-      .toLocaleString("en-GB", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      })
-      .split(",")[0];
+    let dateToday = new Date();
 
-    let upcomingTripsUnorderer = APISupTrips.filter(
-      (trip) => trip.supTripDate >= dateToday
-    );
+    const upcomingTripsUnorderer = APISupTrips.sort((a, b) => {
+      const newA = new Date(a.supTripDate);
+      const newB = new Date(b.supTripDate);
+      return newA - newB;
+    });
 
-    const updatedUpcomingTrips = upcomingTripsUnorderer.sort((a, b) => {
-      const newA = a.supTripDate.split("/").reverse().join("-");
-      const newB = b.supTripDate.split("/").reverse().join("-");
-      return +new Date(newA) - +new Date(newB);
+    let updatedUpcomingTrips = upcomingTripsUnorderer.filter((trip) => {
+      let tripDate = new Date(trip.supTripDate);
+      return tripDate >= dateToday;
     });
 
     dispatch({

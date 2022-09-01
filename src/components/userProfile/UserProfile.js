@@ -36,7 +36,7 @@ function UserProfile() {
       setFilteredSupTrips(userSupTrips);
       localStorage.setItem("userSupTrips", JSON.stringify(userSupTrips));
     }
-  }, [supTrips]);
+  }, [supTrips, user.uid]);
 
   async function handleLogout() {
     await logout();

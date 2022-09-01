@@ -80,7 +80,7 @@ function PaddleTripDetail() {
     }
   }
   useEffect(() => {
-    updateSupTrip(singleSupTrip);
+    updateSupTrip(singleSupTrip); // eslint-disable-next-line
   }, [likeSuptrip, singleSupTrip]);
 
   return (

@@ -14,7 +14,7 @@ const supTripsReducer = (state, action) => {
         upcomingSupTrips: payload.upcomingSupTrips,
       };
     case "INIT_UPCOMINGS":
-      // console.log("INIT_UPCOMINGS", payload);
+      console.log("INIT_UPCOMINGS", payload);
       return { upcomingSupTrips: payload.upcomingSupTrips };
     case "ADD_TRIP":
       console.log("ADD_TRIP", payload);
