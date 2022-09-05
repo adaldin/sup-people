@@ -1,5 +1,9 @@
 import { createContext, useReducer, useContext } from "react";
 import supTripReducer, { initialState } from "./supTripReducer";
+import {
+  getSuptripsByAtendees,
+  getSuptripsByCreators,
+} from "../services/APIService";
 
 // Context
 export const SupTripsContext = createContext(initialState);
@@ -10,18 +14,15 @@ export const SupTripProvider = ({ children }) => {
 
   const initSupTrips = (APISupTrips) => {
     let dateToday = new Date();
-
     const upcomingTripsUnorderer = APISupTrips.sort((a, b) => {
       const newA = new Date(a.supTripDate);
       const newB = new Date(b.supTripDate);
       return newA - newB;
     });
-
     let updatedUpcomingTrips = upcomingTripsUnorderer.filter((trip) => {
       let tripDate = new Date(trip.supTripDate);
       return tripDate >= dateToday;
     });
-
     dispatch({
       type: "INIT",
       payload: {
@@ -31,8 +32,30 @@ export const SupTripProvider = ({ children }) => {
     });
   };
 
+  // const addActiveUsers = (uid) => {
+  //   let user = {};
+  //   let updatedUsers=[]
+  //   const currentUsers = state.users;
+  //   if (!currentUsers.includes(uid)) {
+  //     const uid = uid;
+  //     const nextTrips = getSuptripsByAtendees(state.supTrips, uid);
+  //     const createdTrips = getSuptripsByCreators(state.supTrips, uid);
+  //     user = { uid, nextTrips, createdTrips };
+  //     updatedUsers=state.users.push(user)
+  //   } else {
+  //     const nextTrips = getSuptripsByAtendees(state.supTrips, uid);
+  //     const createdTrips = getSuptripsByCreators(state.supTrips, uid);
+
+  //   }
+
+  // };
+
   const addSupTrip = (supTrip) => {
     const updatedSupTrips = state.supTrips.concat(supTrip);
+    // const updatedUsers=state.users.find(uid)=>{
+    //aquí debo obtener el obj uder (uid) si existe, y añadirle
+    // los nuevos trips
+    // }
     dispatch({
       type: "ADD_TRIP",
       payload: {

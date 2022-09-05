@@ -4,7 +4,8 @@ import { useAuth } from "../../context/AuthContext.js";
 import useSupTrips from "../../context/SupTripsContext";
 import { getUserName } from "../../services/usersService/index.js";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem.js";
-import { getSuptripsByUser } from "../../services/APIService/index.js";
+import { getSuptripsByAtendees } from "../../services/APIService/index.js";
+import { Link } from "react-router-dom";
 // Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -28,14 +29,22 @@ function UserProfile() {
   }, [user.uid]);
 
   useEffect(() => {
-    const userSupTripsMemory = JSON.parse(localStorage.getItem("userSupTrips"));
-    if (userSupTripsMemory !== null) {
-      setFilteredSupTrips(userSupTripsMemory);
-    } else {
-      const userSupTrips = getSuptripsByUser(supTrips, user.uid);
-      setFilteredSupTrips(userSupTrips);
-      localStorage.setItem("userSupTrips", JSON.stringify(userSupTrips));
+    function getNextTrips() {
+      if (supTrips.length === 0) {
+        const userNextSupTrips = JSON.parse(
+          localStorage.getItem("userNextSupTrips")
+        );
+        setFilteredSupTrips(userNextSupTrips);
+      } else {
+        const userNextSupTrips = getSuptripsByAtendees(supTrips, user.uid);
+        setFilteredSupTrips(userNextSupTrips);
+        localStorage.setItem(
+          "userNextSupTrips",
+          JSON.stringify(userNextSupTrips)
+        );
+      }
     }
+    getNextTrips();
   }, [supTrips, user.uid]);
 
   async function handleLogout() {
@@ -43,15 +52,16 @@ function UserProfile() {
     navigate("/profile");
   }
 
-  function handleDelete(e, id) {
+  function handleNextTripsDelete(e, id) {
     const updatedFilteredSuptrips = filteredSupTrips.filter(
-      (trips) => trips.id !== id
+      (trip) => trip.id !== id
     );
     setFilteredSupTrips(updatedFilteredSuptrips);
     localStorage.setItem(
-      "userSupTrips",
+      "userNextSupTrips",
       JSON.stringify(updatedFilteredSuptrips)
     );
+    localStorage.setItem("userNextSupTripsDeleted", JSON.stringify(id));
   }
 
   return (
@@ -80,7 +90,7 @@ function UserProfile() {
           </Row>
           <Row>
             <Col xs={12} className="mt-4">
-              <h6 className="fw-bold p-2">My Routes</h6>
+              <h6 className="fw-bold p-2">Next Trips</h6>
             </Col>
             <Col xs={12}>
               <div className="d-flex flex-column gap-2 p-2">
@@ -89,11 +99,13 @@ function UserProfile() {
                     <PaddleTripsItem
                       key={filteredSupTrips[i].id}
                       {...paddleTrip}
-                      deleteTrip={handleDelete}
+                      deleteTrip={handleNextTripsDelete}
                     />
                   ))
                 ) : (
-                  <p className="text-muted">Add a new Route</p>
+                  <Link to="/">
+                    <p className="text-muted">Join to a new Sup Trip </p>
+                  </Link>
                 )}
               </div>
             </Col>

@@ -1,6 +1,7 @@
 export const initialState = {
   supTrips: [],
   upcomingSupTrips: [],
+  users: [],
 };
 
 const supTripsReducer = (state, action) => {
@@ -12,10 +13,14 @@ const supTripsReducer = (state, action) => {
       return {
         supTrips: payload.supTrips,
         upcomingSupTrips: payload.upcomingSupTrips,
+        users: payload.users,
       };
     case "INIT_UPCOMINGS":
       console.log("INIT_UPCOMINGS", payload);
       return { upcomingSupTrips: payload.upcomingSupTrips };
+    case "ADD_ACTIVE_USERS":
+      console.log("ADD_ACTIVE_USERS", payload);
+      return { users: payload.users };
     case "ADD_TRIP":
       console.log("ADD_TRIP", payload);
       return { ...state, supTrips: payload.supTrips };
