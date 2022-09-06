@@ -205,6 +205,71 @@ function FormAddSuptrip() {
                   //   onChange={handleFormData}
                 />
               </Form.Group>
+              <Form.Group as={Col} xs={12} controlId="formBasicTripBoard">
+                <Form.Label>Type of board</Form.Label>
+                <div className="d-flex justify-content-between">
+                  <Form.Check
+                    inline
+                    label="Solid"
+                    name="typeSolid"
+                    type="radio"
+                    id="typeSolid"
+                  />
+                  <Form.Check
+                    inline
+                    label="Inflatable"
+                    name="typeInflatable"
+                    type="radio"
+                    id="typeInflatable"
+                  />
+                </div>
+              </Form.Group>
+
+              <Form.Group as={Col} xs={12} controlId="formBasicTripBoard">
+                <Form.Label>Size of the board</Form.Label>
+                <div className="d-flex justify-content-between">
+                  <Form.Check
+                    inline
+                    label="10′"
+                    name="sizeSmall"
+                    type="radio"
+                    id="sizeSmall"
+                  />
+                  <Form.Check
+                    inline
+                    label="10′-12′"
+                    name="sizeMedium"
+                    type="radio"
+                    id="sizeMedium"
+                  />
+                  <Form.Check
+                    inline
+                    label="+12′"
+                    name="sizeLarge"
+                    type="radio"
+                    id="sizeLarge"
+                  />
+                </div>
+              </Form.Group>
+              <Form.Group as={Col} xs={12} controlId="formBasicTripBoard">
+                <Form.Label>Board features</Form.Label>
+                <div className="d-flex justify-content-between">
+                  <Form.Check
+                    inline
+                    label="Flat water"
+                    name="bestForFlat"
+                    type="radio"
+                    id="typeSolid"
+                  />
+                  <Form.Check
+                    inline
+                    label="Inflatable"
+                    name="typeInflatable"
+                    type="radio"
+                    id="typeInflatable"
+                  />
+                </div>
+              </Form.Group>
 
               <Form.Group as={Col} xs={12} controlId="formBasicTripDate">
                 <Form.Label>Enter a description</Form.Label>
