@@ -20,7 +20,7 @@ import { useAuth } from "../../context/AuthContext";
 function FormAddSuptrip() {
   //******STATES*/
   const [openForm, setOpenForm] = useState("");
-
+  const [checkBoardFeature, setCheckBoardFeature] = useState(false);
   const [locationsLoaded, setLocationsLoaded] = useState(false);
   const [addresssData, setAddressData] = useState([]);
   const [formData, setFormData] = useState({
@@ -142,6 +142,11 @@ function FormAddSuptrip() {
   function handleRadio(e) {
     console.log(e.target.checked);
   }
+  function handleClick(e) {
+    if (e.target.checked) {
+      setCheckBoardFeature((prevCheck) => !prevCheck);
+    }
+  }
 
   return (
     <>
@@ -219,7 +224,9 @@ function FormAddSuptrip() {
                     name="typeSolid"
                     type="radio"
                     id="typeSolid"
+                    checked={checkBoardFeature}
                     onChange={handleRadio}
+                    onClick={handleClick}
                   />
                   <Form.Check
                     inline
@@ -227,6 +234,9 @@ function FormAddSuptrip() {
                     name="typeInflatable"
                     type="radio"
                     id="typeInflatable"
+                    checked={checkBoardFeature}
+                    onChange={handleRadio}
+                    onClick={handleClick}
                   />
                 </div>
               </Form.Group>
