@@ -1,7 +1,6 @@
 export const initialState = {
   supTrips: [],
   upcomingSupTrips: [],
-  users: [],
 };
 
 const supTripsReducer = (state, action) => {

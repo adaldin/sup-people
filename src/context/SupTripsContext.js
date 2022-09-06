@@ -1,9 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
 import supTripReducer, { initialState } from "./supTripReducer";
-import {
-  getSuptripsByAtendees,
-  getSuptripsByCreators,
-} from "../services/APIService";
 
 // Context
 export const SupTripsContext = createContext(initialState);
@@ -31,24 +27,6 @@ export const SupTripProvider = ({ children }) => {
       },
     });
   };
-
-  // const addActiveUsers = (uid) => {
-  //   let user = {};
-  //   let updatedUsers=[]
-  //   const currentUsers = state.users;
-  //   if (!currentUsers.includes(uid)) {
-  //     const uid = uid;
-  //     const nextTrips = getSuptripsByAtendees(state.supTrips, uid);
-  //     const createdTrips = getSuptripsByCreators(state.supTrips, uid);
-  //     user = { uid, nextTrips, createdTrips };
-  //     updatedUsers=state.users.push(user)
-  //   } else {
-  //     const nextTrips = getSuptripsByAtendees(state.supTrips, uid);
-  //     const createdTrips = getSuptripsByCreators(state.supTrips, uid);
-
-  //   }
-
-  // };
 
   const addSupTrip = (supTrip) => {
     const updatedSupTrips = state.supTrips.concat(supTrip);

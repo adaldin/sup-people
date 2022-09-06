@@ -6,6 +6,7 @@ import { getUserName } from "../../services/usersService/index.js";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem.js";
 import { getSuptripsByAtendees } from "../../services/APIService/index.js";
 import { Link } from "react-router-dom";
+import { updateTrips } from "../../services/APIService/index.js";
 // Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -16,7 +17,7 @@ function UserProfile() {
   const [userName, setUserName] = useState("");
   const [filteredSupTrips, setFilteredSupTrips] = useState([]);
   const { user, logout, loading } = useAuth();
-  const { supTrips } = useSupTrips();
+  const { supTrips, updateSupTrip } = useSupTrips();
 
   const navigate = useNavigate();
 
@@ -52,16 +53,15 @@ function UserProfile() {
     navigate("/profile");
   }
 
-  function handleNextTripsDelete(e, id) {
-    const updatedFilteredSuptrips = filteredSupTrips.filter(
-      (trip) => trip.id !== id
-    );
-    setFilteredSupTrips(updatedFilteredSuptrips);
-    localStorage.setItem(
-      "userNextSupTrips",
-      JSON.stringify(updatedFilteredSuptrips)
-    );
-    localStorage.setItem("userNextSupTripsDeleted", JSON.stringify(id));
+  async function handleNextTripsDelete(e, id) {
+    const currentSuptrip = supTrips.find((suptrip) => {
+      if (suptrip.id === id) {
+        suptrip.atendees.splice(suptrip.atendees.indexOf(user.uid), 1);
+      }
+      return suptrip;
+    });
+    updateSupTrip(currentSuptrip);
+    await updateTrips(currentSuptrip);
   }
 
   return (
