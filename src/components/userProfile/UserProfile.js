@@ -7,6 +7,7 @@ import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem.js";
 import { getSuptripsByAtendees } from "../../services/APIService/index.js";
 import { Link } from "react-router-dom";
 import { updateTrips } from "../../services/APIService/index.js";
+import AddSuptrip from "../addSuptrip/AddSuptrip.js";
 // Bootstrap
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -85,12 +86,12 @@ function UserProfile() {
           </Row>
           <Row className="justify-content-center">
             <Col xs={12} className="jusify-content-center">
-              aquí form create event
+              <AddSuptrip />
             </Col>
           </Row>
           <Row>
             <Col xs={12} className="mt-4">
-              <h6 className="fw-bold p-2">Next Trips</h6>
+              <h6 className="fw-bold p-2">Next Joined Trips</h6>
             </Col>
             <Col xs={12}>
               <div className="d-flex flex-column gap-2 p-2">
@@ -111,8 +112,9 @@ function UserProfile() {
             </Col>
           </Row>
           <Row>
-            <Col xs={12} className="my-4">
+            <Col xs={12} className="my-5">
               <h6 className="fw-bold">Favourites Routes</h6>
+              <small className="text-muted text-center">Upcoming feature</small>
             </Col>
           </Row>
         </Container>
