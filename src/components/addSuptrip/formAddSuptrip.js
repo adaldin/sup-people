@@ -20,6 +20,7 @@ import { useAuth } from "../../context/AuthContext";
 function FormAddSuptrip() {
   //******STATES*/
   const [openForm, setOpenForm] = useState("");
+
   const [locationsLoaded, setLocationsLoaded] = useState(false);
   const [addresssData, setAddressData] = useState([]);
   const [formData, setFormData] = useState({
@@ -138,6 +139,9 @@ function FormAddSuptrip() {
   //       console.log("Failed on writing do db: ", err);
   //     }
   //   }
+  function handleRadio(e) {
+    console.log(e.target.checked);
+  }
 
   return (
     <>
@@ -207,6 +211,7 @@ function FormAddSuptrip() {
               </Form.Group>
               <Form.Group as={Col} xs={12} controlId="formBasicTripBoard">
                 <Form.Label>Type of board</Form.Label>
+
                 <div className="d-flex justify-content-between">
                   <Form.Check
                     inline
@@ -214,6 +219,7 @@ function FormAddSuptrip() {
                     name="typeSolid"
                     type="radio"
                     id="typeSolid"
+                    onChange={handleRadio}
                   />
                   <Form.Check
                     inline
