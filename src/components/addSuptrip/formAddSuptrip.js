@@ -12,11 +12,6 @@ import Accordion from "react-bootstrap/Accordion";
 import { useAuth } from "../../context/AuthContext";
 // import LocationContext from "../../context/locationContext";
 
-// //Firestore
-// import { db } from "../firebase/firebase";
-// import { collection, addDoc } from "firebase/firestore";
-// import { geocodingKey } from "../../config.js";
-
 function FormAddSuptrip() {
   //******STATES*/
   const [openForm, setOpenForm] = useState("");

@@ -26,10 +26,11 @@ function AddSuptrip() {
       </div>
       <Modal show={show} onHide={handleClose} className="modal--container">
         <Modal.Body className="p-0 position-relative">
-          <HomeMapWrapper className="map--position__container" />
+          <HomeMapWrapper
+            className="map--position__container"
+            profileMap={true}
+          />
           <FormAddSuptrip />
-          {/* <MapContainer className="map--position__container" /> */}
-          {/* <FormCreateEvent /> */}
         </Modal.Body>
       </Modal>
     </>

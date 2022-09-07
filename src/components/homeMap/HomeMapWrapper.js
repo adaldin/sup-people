@@ -5,8 +5,10 @@ import Marker from "./Marker";
 import { useEffect, useState } from "react";
 import Loader from "./loader/Loader.js";
 import useSupTrips from "../../context/SupTripsContext";
+import ProfileMap from "./ProfileMap.js";
+import Polyline from "./Polyline.js";
 
-function HomeMapWrapper({ upcomingTrips }) {
+function HomeMapWrapper({ profileMap }) {
   const [center, setCenter] = useState();
   const [zoom, setZoom] = useState(0);
   // custom hook to use context
@@ -39,19 +41,24 @@ function HomeMapWrapper({ upcomingTrips }) {
     navigator.geolocation.getCurrentPosition(success, error, options);
   }, []);
 
-  useEffect(() => {}, []);
   return (
     <Wrapper apiKey={mapKey}>
       {center ? (
-        <HomeMap center={center} zoom={zoom}>
-          {upcomingSupTrips.map((trip, index) => (
-            <Marker
-              key={index}
-              position={trip.coordinates.entryPoint}
-              id={index}
-            />
-          ))}
-        </HomeMap>
+        profileMap ? (
+          <ProfileMap center={center} zoom={zoom}>
+            <Polyline />
+          </ProfileMap>
+        ) : (
+          <HomeMap center={center} zoom={zoom}>
+            {upcomingSupTrips.map((trip, index) => (
+              <Marker
+                key={index}
+                position={trip.coordinates.entryPoint}
+                id={index}
+              />
+            ))}
+          </HomeMap>
+        )
       ) : (
         <Loader />
       )}

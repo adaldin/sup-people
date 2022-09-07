@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { mapID } from "../../config.js";
 
-function HomeMap({ center, zoom, children }) {
-  const [map, setMap] = useState();
+function ProfileMap({ center, zoom, children }) {
+  const [poliMap, setPoliMap] = useState();
   const ref = useRef();
 
   useEffect(() => {
-    setMap(
+    setPoliMap(
       new window.google.maps.Map(ref.current, {
         mapId: mapID,
         mapTypeControl: false,
@@ -27,18 +27,20 @@ function HomeMap({ center, zoom, children }) {
     );
   }, []);
 
-  if (map) {
-    map.setCenter(new window.google.maps.LatLng(center.lat, center.lng));
-    map.setZoom(zoom);
-  }
+  useEffect(() => {
+    if (poliMap) {
+      poliMap.setCenter(new window.google.maps.LatLng(center.lat, center.lng));
+      poliMap.setZoom(zoom);
+    }
+  }, [poliMap]);
 
   return (
     <div ref={ref} style={{ height: "90vh" }} id="map">
       {React.Children.map(children, (child) =>
-        React.cloneElement(child, { map })
+        React.cloneElement(child, { poliMap })
       )}
     </div>
   );
 }
 
-export default HomeMap;
+export default ProfileMap;
