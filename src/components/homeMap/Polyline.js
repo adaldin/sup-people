@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
+import useSupTrips from "../../context/SupTripsContext";
 
 function Polyline({ poliMap }) {
   const [poly, setPoly] = useState();
+  const [path, setPath] = useState();
+  // custom hook to use context
+  const { getWaypoints } = useSupTrips();
+
   useEffect(() => {
     setPoly(
       new window.google.maps.Polyline({
         strokeColor: "#2C9BB3",
-        strokeOpacity: 1.0,
+        strokeOpacity: 0.8,
         strokeWeight: 3,
       })
     );
@@ -27,12 +32,35 @@ function Polyline({ poliMap }) {
       poly.setMap(poliMap);
 
       poliMap.addListener("click", (e) => {
-        let path = poly.getPath();
-        path.push(e.latLng);
+        let newPath = poly.getPath();
+        newPath.push(e.latLng);
+
+        //entry y exit point
+        const entryPoint = {
+          lat: newPath.getAt(0).lat(),
+          lng: newPath.getAt(0).lng(),
+        };
+        const exitPoint = {
+          lat: newPath.getAt(newPath.length - 1).lat(),
+          lng: newPath.getAt(newPath.length - 1).lng(),
+        };
+        getWaypoints(entryPoint, exitPoint);
+
+        // newPath.getAt(0).lat(),
+        //   newPath.getAt(0).lng(),
+        //   "ultimo: ",
+        //   newPath.getAt(newPath.length - 1).lat(),
+        //   newPath.getAt(newPath.length - 1).lng()
+
+        if (path === undefined) {
+          setPath(newPath);
+        } else {
+          setPath((prevPath) => [...prevPath, newPath]);
+        }
 
         new window.google.maps.Marker({
           position: e.latLng,
-          title: "#" + path.getLength(),
+          title: "#" + newPath.getLength(),
           map: poliMap,
           animation: window.google.maps.Animation.DROP,
           icon: svgMarker,

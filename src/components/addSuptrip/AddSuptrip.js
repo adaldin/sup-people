@@ -6,7 +6,7 @@ import FormAddSuptrip from "./formAddSuptrip";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-function AddSuptrip() {
+function AddSuptrip({ uid }) {
   const [show, setShow] = useState(false);
 
   // modal
@@ -25,6 +25,9 @@ function AddSuptrip() {
         </Button>
       </div>
       <Modal show={show} onHide={handleClose} className="modal--container">
+        <Modal.Header closeButton>
+          Select the Waypoints on your trip
+        </Modal.Header>
         <Modal.Body className="p-0 position-relative">
           <HomeMapWrapper
             className="map--position__container"

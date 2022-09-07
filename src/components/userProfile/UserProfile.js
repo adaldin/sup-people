@@ -33,7 +33,7 @@ function UserProfile() {
 
   useEffect(() => {
     function getNextTrips() {
-      if (supTrips.length === 0) {
+      if (supTrips === undefined || supTrips.length === 0) {
         const userNextSupTrips = JSON.parse(
           localStorage.getItem("userNextSupTrips")
         );

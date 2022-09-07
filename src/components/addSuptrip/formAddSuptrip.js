@@ -16,16 +16,21 @@ function FormAddSuptrip() {
   //******STATES*/
   const [openForm, setOpenForm] = useState("");
   const [checkBoardFeature, setCheckBoardFeature] = useState(false);
-  const [locationsLoaded, setLocationsLoaded] = useState(false);
-  const [addresssData, setAddressData] = useState([]);
+  // const [locationsLoaded, setLocationsLoaded] = useState(false);
+  // const [addresssData, setAddressData] = useState([]);
   const [formData, setFormData] = useState({
-    eventName: "",
-    sPoint: "",
-    ePoint: "",
-    eventDate: "",
-    eventTime: "",
-    eventDescription: "",
+    coordinates: { entryPoint: "", exitPoint: "" },
     atendees: [],
+    board: { bestFor: "", size: "", type: "" },
+    createdBy: "aqui usar context y tomar uid",
+    createdOn: new Date(),
+    supTripDate: "",
+    supTripDescription: "",
+    supTripHour: "",
+    supTripLocality: "",
+    supTripName: "",
+    supTripRate: 0,
+    supTripTotalHours: 0,
   });
   const [newPaddleTrip, setNewPaddleTrip] = useState({});
   const [tripSaved, setTripSaved] = useState(false);

@@ -35,7 +35,7 @@ function ProfileMap({ center, zoom, children }) {
   }, [poliMap]);
 
   return (
-    <div ref={ref} style={{ height: "90vh" }} id="map">
+    <div ref={ref} style={{ height: "80vh" }} id="map">
       {React.Children.map(children, (child) =>
         React.cloneElement(child, { poliMap })
       )}

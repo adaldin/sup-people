@@ -1,6 +1,7 @@
 export const initialState = {
   supTrips: [],
   upcomingSupTrips: [],
+  currentWaypoints: {},
 };
 
 const supTripsReducer = (state, action) => {
@@ -17,9 +18,6 @@ const supTripsReducer = (state, action) => {
     case "INIT_UPCOMINGS":
       console.log("INIT_UPCOMINGS", payload);
       return { upcomingSupTrips: payload.upcomingSupTrips };
-    case "ADD_ACTIVE_USERS":
-      console.log("ADD_ACTIVE_USERS", payload);
-      return { users: payload.users };
     case "ADD_TRIP":
       console.log("ADD_TRIP", payload);
       return { ...state, supTrips: payload.supTrips };
@@ -29,6 +27,9 @@ const supTripsReducer = (state, action) => {
     case "UPDATE_TRIP":
       // console.log("UPDATE_TRIP", payload);
       return { ...state, supTrips: payload.supTrips };
+    case "GET_WAYPOINTS":
+      console.log("GET_WAYPOINTS", payload);
+      return { currentWaypoints: payload.currentWaypoints };
     default:
       throw new Error(`No case for type ${type}`);
   }

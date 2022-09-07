@@ -67,13 +67,36 @@ export const SupTripProvider = ({ children }) => {
     });
   };
 
+  const getWaypoints = (entry, exit) => {
+    const updatedWaypoints = {
+      ...state.currentWaypoints,
+      entryPoint: {
+        lat: entry.lat,
+        lng: entry.lng,
+      },
+      exitPoint: {
+        lat: exit.lat,
+        lng: exit.lng,
+      },
+    };
+    dispatch({
+      type: "GET_WAYPOINTS",
+      payload: {
+        currentWaypoints: updatedWaypoints,
+      },
+    });
+    console.log(state.currentWaypoints);
+  };
+
   const value = {
     supTrips: state.supTrips,
     upcomingSupTrips: state.upcomingSupTrips,
+    currentWaypoints: state.currentWaypoints,
     initSupTrips,
     addSupTrip,
     removeSupTrip,
     updateSupTrip,
+    getWaypoints,
   };
 
   return (
