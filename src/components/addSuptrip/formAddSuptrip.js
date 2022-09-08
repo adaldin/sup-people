@@ -55,36 +55,25 @@ function FormAddSuptrip() {
   function handleAnimation() {
     setOpenForm("drawer");
   }
-  function handleInputs(event) {
-    let { name, value } = event.target;
-    // let newData = { ...formData };
-    // newData[name]=value
-    setFormData((prevData) => {
-      return { ...prevData, [name]: value };
-    });
+  function handleFormData(event) {
+    const { name, value, type } = event.target;
+    if (type !== "radio") {
+      setFormData((prevFormData) => {
+        return {
+          ...prevFormData,
+          [name]: value,
+        };
+      });
+    } else {
+      setFormData((prevFormData) => {
+        return {
+          ...prevFormData,
+          board: { ...prevFormData.board, [name]: value },
+        };
+      });
+      console.log(formData);
+    }
   }
-
-  function handleRadios(event) {
-    let { name, checked } = event.target;
-    console.log(checked);
-    setBoard((prevData) => {
-      console.log(prevData);
-      return { ...prevData, [name]: checked };
-    });
-  }
-
-  //   function handleFormData(e) {
-  //     const { name, value } = e.target;
-  //     const atendees = [user.email];
-
-  //     setFormData((prevData) => {
-  //       return {
-  //         ...prevData,
-  //         [name]: value,
-  //         atendees: atendees,
-  //       };
-  //     });
-  //   }
 
   //   function createNewPaddleTrip() {
   //     let atendeesArr = [];
@@ -152,7 +141,7 @@ function FormAddSuptrip() {
                   name="supTripName"
                   required
                   placeholder="Très viles route"
-                  onChange={handleInputs}
+                  onChange={handleFormData}
                 />
               </Form.Group>
 
@@ -163,7 +152,7 @@ function FormAddSuptrip() {
                   name="supTripDate"
                   required
                   placeholder="08/08/2022"
-                  onChange={handleInputs}
+                  onChange={handleFormData}
                 />
               </Form.Group>
               <Form.Group as={Col} xs={6} controlId="formBasicTripDate">
@@ -173,7 +162,7 @@ function FormAddSuptrip() {
                   name="supTripHour"
                   required
                   placeholder="07:00"
-                  onChange={handleInputs}
+                  onChange={handleFormData}
                 />
               </Form.Group>
 
@@ -185,7 +174,7 @@ function FormAddSuptrip() {
                   name="supTripLocality"
                   required
                   placeholder="Caldes d'Estrac"
-                  onChange={handleInputs}
+                  onChange={handleFormData}
                 />
               </Form.Group>
 
@@ -196,22 +185,22 @@ function FormAddSuptrip() {
                   <Form.Check
                     inline
                     label="Solid"
-                    name="solid"
+                    name="type"
                     type="radio"
                     value="solid"
                     checked={formData.board.type === "solid"}
                     id="solid"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                   <Form.Check
                     inline
                     label="Inflatable"
-                    name="inflatable"
+                    name="type"
                     type="radio"
                     value="inflatable"
                     checked={formData.board.type === "inflatable"}
                     id="inflatable"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                 </div>
               </Form.Group>
@@ -222,32 +211,32 @@ function FormAddSuptrip() {
                   <Form.Check
                     inline
                     label="10′"
-                    name="small"
+                    name="size"
                     type="radio"
                     value="10′"
                     checked={formData.board.size === "10′"}
                     id="small"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                   <Form.Check
                     inline
                     label="10′-12′"
-                    name="medium"
+                    name="size"
                     type="radio"
                     value="10′-12′"
                     checked={formData.board.size === "10′-12′"}
                     id="medium"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                   <Form.Check
                     inline
                     label="+12′"
-                    name="large"
+                    name="size"
                     type="radio"
                     value="+12′"
                     checked={formData.board.size === "+12′"}
                     id="large"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                 </div>
               </Form.Group>
@@ -257,32 +246,32 @@ function FormAddSuptrip() {
                   <Form.Check
                     inline
                     label="Flat water"
-                    name="flatWater"
+                    name="bestFor"
                     type="radio"
                     value="flatWater"
                     checked={formData.board.bestFor === "flatWater"}
                     id="flatWater"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                   <Form.Check
                     inline
                     label="Performing"
-                    name="performing"
+                    name="bestFor"
                     type="radio"
                     value="performing"
                     checked={formData.board.bestFor === "performing"}
                     id="performing"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                   <Form.Check
                     inline
                     label="Racing"
-                    name="racing"
+                    name="bestFor"
                     type="radio"
                     value="racing"
                     checked={board.racing}
                     id="racing"
-                    onChange={handleRadios}
+                    onChange={handleFormData}
                   />
                 </div>
               </Form.Group>
@@ -295,7 +284,7 @@ function FormAddSuptrip() {
                   name="supTripDescription"
                   placeholder="Entering to the water close to the beacons system, turning to the left on the rocks system an moving foward until we reach Areny's Port"
                   required
-                  onChange={handleInputs}
+                  onChange={handleFormData}
                 />
               </Form.Group>
 
