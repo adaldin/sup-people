@@ -30,10 +30,6 @@ export const SupTripProvider = ({ children }) => {
 
   const addSupTrip = (supTrip) => {
     const updatedSupTrips = state.supTrips.concat(supTrip);
-    // const updatedUsers=state.users.find(uid)=>{
-    //aquí debo obtener el obj uder (uid) si existe, y añadirle
-    // los nuevos trips
-    // }
     dispatch({
       type: "ADD_TRIP",
       payload: {

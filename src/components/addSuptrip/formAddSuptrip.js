@@ -1,6 +1,6 @@
 import "./formAddSuptrip.css";
 // React
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // Bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -9,11 +9,16 @@ import Col from "react-bootstrap/Col";
 import Accordion from "react-bootstrap/Accordion";
 // Context
 import { useAuth } from "../../context/AuthContext";
+import useSupTrips from "../../context/SupTripsContext";
+import { updateTrips } from "../../services/APIService/index";
 
 function FormAddSuptrip() {
+  // custom hook
+  const { currentWaypoints, addSupTrip, supTrips } = useSupTrips();
+  const { user } = useAuth();
+
   const [openForm, setOpenForm] = useState("");
   const [formData, setFormData] = useState({
-    coordinates: { entryPoint: "", exitPoint: "" },
     supTripDate: "",
     supTripDescription: "",
     supTripHour: "",
@@ -24,40 +29,35 @@ function FormAddSuptrip() {
       size: "",
       type: "",
     },
+    atendees: [user.uid],
+    createdBy: user.uid,
+    createdOn: new Date(),
+    suptripRate: 0,
   });
-  // saco de aquí:
-  // atendees: [],
-  // board: { bestFor: "", size: "", type: "" },
-  // createdBy: "aqui usar context y tomar uid",
-  // createdOn: new Date(),
-  // supTripRate: 0,
-  //   supTripTotalHours: 0,
-  const [board, setBoard] = useState({
-    flatWater: false,
-    permorming: false,
-    racing: false,
-    small: false,
-    medium: false,
-    large: false,
-    solid: false,
-    inflatable: false,
-  });
-  // const [newPaddleTrip, setNewPaddleTrip] = useState({});
+  const [coordinates, setCoordinates] = useState({});
+  const [newSupTrip, setNewSuptrip] = useState({});
   const [tripSaved, setTripSaved] = useState(false);
 
-  //******CONTEXT*/
-  const { user } = useAuth();
-
-  //   useEffect(() => {
-  //     createNewPaddleTrip(); // eslint-disable-next-line
-  //   }, [addresssData],formData);
+  useEffect(() => {
+    if (currentWaypoints) {
+      let newCoords = {
+        entryPoint: currentWaypoints.entryPoint,
+        exitPoint: currentWaypoints.exitPoint,
+      };
+      setCoordinates(newCoords);
+    }
+  }, [currentWaypoints]);
 
   function handleAnimation() {
     setOpenForm("drawer");
   }
+
   function handleFormData(event) {
     const { name, value, type } = event.target;
-    if (type !== "radio") {
+    if (
+      type !== "radio" &&
+      (typeof value !== "array" || typeof value !== "number")
+    ) {
       setFormData((prevFormData) => {
         return {
           ...prevFormData,
@@ -71,8 +71,21 @@ function FormAddSuptrip() {
           board: { ...prevFormData.board, [name]: value },
         };
       });
-      console.log(formData);
     }
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    let newTrip = {};
+    const isFormEmpty = Object.values(formData).some(
+      (input) => input === "" || input === []
+    );
+    if (coordinates && !isFormEmpty) {
+      newTrip = { ...formData, coordinates };
+    }
+    setNewSuptrip(newTrip);
+    addSupTrip(newSupTrip);
+    updateTrips(newSupTrip);
   }
 
   //   function createNewPaddleTrip() {
@@ -123,6 +136,7 @@ function FormAddSuptrip() {
   //       console.log("Failed on writing do db: ", err);
   //     }
   //   }
+  console.log("suptrips: ", supTrips);
   return (
     <>
       <Accordion onClick={handleAnimation} className={openForm}>
@@ -131,7 +145,7 @@ function FormAddSuptrip() {
           <Accordion.Body>
             <Row
               as={Form}
-              //   onSubmit={handleEventCreation}
+              onSubmit={handleSubmit}
               className="bg-transparent px-2  justify-content-evenly"
             >
               <Form.Group as={Col} xs={12} controlId="formBasicTripName">
@@ -269,7 +283,7 @@ function FormAddSuptrip() {
                     name="bestFor"
                     type="radio"
                     value="racing"
-                    checked={board.racing}
+                    checked={formData.board.bestFor === "racing"}
                     id="racing"
                     onChange={handleFormData}
                   />
@@ -291,7 +305,7 @@ function FormAddSuptrip() {
               {/* submit */}
               <div className="d-grid py-2">
                 {!tripSaved ? (
-                  <Button variant="secondary" type="submit">
+                  <Button variant="primary" type="submit">
                     Save Trip
                   </Button>
                 ) : (
