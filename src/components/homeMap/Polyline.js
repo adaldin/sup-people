@@ -35,7 +35,7 @@ function Polyline({ poliMap }) {
         let newPath = poly.getPath();
         newPath.push(e.latLng);
 
-        //entry y exit point
+        // entry y exit point
         const entryPoint = {
           lat: newPath.getAt(0).lat(),
           lng: newPath.getAt(0).lng(),
@@ -45,12 +45,6 @@ function Polyline({ poliMap }) {
           lng: newPath.getAt(newPath.length - 1).lng(),
         };
         getWaypoints(entryPoint, exitPoint);
-
-        // newPath.getAt(0).lat(),
-        //   newPath.getAt(0).lng(),
-        //   "ultimo: ",
-        //   newPath.getAt(newPath.length - 1).lat(),
-        //   newPath.getAt(newPath.length - 1).lng()
 
         if (path === undefined) {
           setPath(newPath);

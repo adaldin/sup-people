@@ -1,81 +1,76 @@
 import "./formAddSuptrip.css";
 // React
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 // Bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Accordion from "react-bootstrap/Accordion";
-
 // Context
 import { useAuth } from "../../context/AuthContext";
-// import LocationContext from "../../context/locationContext";
 
 function FormAddSuptrip() {
-  //******STATES*/
   const [openForm, setOpenForm] = useState("");
-  const [checkBoardFeature, setCheckBoardFeature] = useState(false);
-  // const [locationsLoaded, setLocationsLoaded] = useState(false);
-  // const [addresssData, setAddressData] = useState([]);
   const [formData, setFormData] = useState({
     coordinates: { entryPoint: "", exitPoint: "" },
-    atendees: [],
-    board: { bestFor: "", size: "", type: "" },
-    createdBy: "aqui usar context y tomar uid",
-    createdOn: new Date(),
     supTripDate: "",
     supTripDescription: "",
     supTripHour: "",
     supTripLocality: "",
     supTripName: "",
-    supTripRate: 0,
-    supTripTotalHours: 0,
+    board: {
+      bestFor: "",
+      size: "",
+      type: "",
+    },
   });
-  const [newPaddleTrip, setNewPaddleTrip] = useState({});
+  // saco de aquí:
+  // atendees: [],
+  // board: { bestFor: "", size: "", type: "" },
+  // createdBy: "aqui usar context y tomar uid",
+  // createdOn: new Date(),
+  // supTripRate: 0,
+  //   supTripTotalHours: 0,
+  const [board, setBoard] = useState({
+    flatWater: false,
+    permorming: false,
+    racing: false,
+    small: false,
+    medium: false,
+    large: false,
+    solid: false,
+    inflatable: false,
+  });
+  // const [newPaddleTrip, setNewPaddleTrip] = useState({});
   const [tripSaved, setTripSaved] = useState(false);
 
   //******CONTEXT*/
   const { user } = useAuth();
-  //   const { locations } = useContext(LocationContext);
-
-  //******USEEFFECT*/
-  //   useEffect(() => {
-  //     function checkLocations() {
-  //       if (locations.length === 2) {
-  //         setLocationsLoaded(true);
-  //       }
-  //     }
-  //     checkLocations();
-  //   }, [locations.length]);
-
-  //   useEffect(() => {
-  //     async function fetchData() {
-  //       const data = await Promise.all(
-  //         locations.map(
-  //           async (location) =>
-  //             await (
-  //               await fetch(
-  //                 `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&location_type=ROOFTOP&result_type=street_address&key=${geocodingKey}`
-  //               )
-  //             ).json()
-  //         )
-  //       );
-  //       setAddressData(data);
-  //     }
-  //     fetchData(); // eslint-disable-next-line
-  //   }, [locationsLoaded]);
 
   //   useEffect(() => {
   //     createNewPaddleTrip(); // eslint-disable-next-line
-  //   }, [addresssData]);
-  //   useEffect(() => {
-  //     createNewPaddleTrip(); // eslint-disable-next-line
-  //   }, [formData]);
+  //   }, [addresssData],formData);
 
-  //******LOGIC*/
   function handleAnimation() {
     setOpenForm("drawer");
+  }
+  function handleInputs(event) {
+    let { name, value } = event.target;
+    // let newData = { ...formData };
+    // newData[name]=value
+    setFormData((prevData) => {
+      return { ...prevData, [name]: value };
+    });
+  }
+
+  function handleRadios(event) {
+    let { name, checked } = event.target;
+    console.log(checked);
+    setBoard((prevData) => {
+      console.log(prevData);
+      return { ...prevData, [name]: checked };
+    });
   }
 
   //   function handleFormData(e) {
@@ -139,15 +134,6 @@ function FormAddSuptrip() {
   //       console.log("Failed on writing do db: ", err);
   //     }
   //   }
-  function handleRadio(e) {
-    console.log(e.target.checked);
-  }
-  function handleClick(e) {
-    if (e.target.checked) {
-      setCheckBoardFeature((prevCheck) => !prevCheck);
-    }
-  }
-
   return (
     <>
       <Accordion onClick={handleAnimation} className={openForm}>
@@ -163,34 +149,10 @@ function FormAddSuptrip() {
                 <Form.Label>Trip Name</Form.Label>
                 <Form.Control
                   type="text"
-                  name="eventName"
+                  name="supTripName"
                   required
                   placeholder="Très viles route"
-                  //   onChange={handleFormData}
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} xs={6} controlId="formBasicTripPlace">
-                <Form.Label>Starting Point</Form.Label>
-                {/* AQUI GEOCODING TRANSFORMING LAT LNG TI INPUT.VALUE ADDRESS */}
-                <Form.Control
-                  type="text"
-                  name="sPoint"
-                  required
-                  placeholder="Caldes d'Estrac"
-                  //   onChange={handleFormData}
-                />
-              </Form.Group>
-
-              <Form.Group as={Col} xs={6} controlId="formBasicTripPlace">
-                <Form.Label>Exit Point</Form.Label>
-                {/* AQUI GEOCODING TRANSFORMING LAT LNG TI INPUT.VALUE ADDRESS */}
-                <Form.Control
-                  type="text"
-                  name="ePoint"
-                  required
-                  placeholder="Arenys de Mar"
-                  //   onChange={handleFormData}
+                  onChange={handleInputs}
                 />
               </Form.Group>
 
@@ -198,22 +160,35 @@ function FormAddSuptrip() {
                 <Form.Label>Select a date</Form.Label>
                 <Form.Control
                   type="date"
-                  name="eventDate"
+                  name="supTripDate"
                   required
                   placeholder="08/08/2022"
-                  //   onChange={handleFormData}
+                  onChange={handleInputs}
                 />
               </Form.Group>
               <Form.Group as={Col} xs={6} controlId="formBasicTripDate">
                 <Form.Label>Select a time</Form.Label>
                 <Form.Control
                   type="time"
-                  name="eventTime"
+                  name="supTripHour"
                   required
                   placeholder="07:00"
-                  //   onChange={handleFormData}
+                  onChange={handleInputs}
                 />
               </Form.Group>
+
+              <Form.Group as={Col} xs={12} controlId="formBasicTripPlace">
+                <Form.Label>Locality</Form.Label>
+                {/* AQUI GEOCODING TRANSFORMING LAT LNG TI INPUT.VALUE ADDRESS */}
+                <Form.Control
+                  type="text"
+                  name="supTripLocality"
+                  required
+                  placeholder="Caldes d'Estrac"
+                  onChange={handleInputs}
+                />
+              </Form.Group>
+
               <Form.Group as={Col} xs={12} controlId="formBasicTripBoard">
                 <Form.Label>Type of board</Form.Label>
 
@@ -221,22 +196,22 @@ function FormAddSuptrip() {
                   <Form.Check
                     inline
                     label="Solid"
-                    name="typeSolid"
+                    name="solid"
                     type="radio"
-                    id="typeSolid"
-                    checked={checkBoardFeature}
-                    onChange={handleRadio}
-                    onClick={handleClick}
+                    value="solid"
+                    checked={formData.board.type === "solid"}
+                    id="solid"
+                    onChange={handleRadios}
                   />
                   <Form.Check
                     inline
                     label="Inflatable"
-                    name="typeInflatable"
+                    name="inflatable"
                     type="radio"
-                    id="typeInflatable"
-                    checked={checkBoardFeature}
-                    onChange={handleRadio}
-                    onClick={handleClick}
+                    value="inflatable"
+                    checked={formData.board.type === "inflatable"}
+                    id="inflatable"
+                    onChange={handleRadios}
                   />
                 </div>
               </Form.Group>
@@ -247,23 +222,32 @@ function FormAddSuptrip() {
                   <Form.Check
                     inline
                     label="10′"
-                    name="sizeSmall"
+                    name="small"
                     type="radio"
-                    id="sizeSmall"
+                    value="10′"
+                    checked={formData.board.size === "10′"}
+                    id="small"
+                    onChange={handleRadios}
                   />
                   <Form.Check
                     inline
                     label="10′-12′"
-                    name="sizeMedium"
+                    name="medium"
                     type="radio"
-                    id="sizeMedium"
+                    value="10′-12′"
+                    checked={formData.board.size === "10′-12′"}
+                    id="medium"
+                    onChange={handleRadios}
                   />
                   <Form.Check
                     inline
                     label="+12′"
-                    name="sizeLarge"
+                    name="large"
                     type="radio"
-                    id="sizeLarge"
+                    value="+12′"
+                    checked={formData.board.size === "+12′"}
+                    id="large"
+                    onChange={handleRadios}
                   />
                 </div>
               </Form.Group>
@@ -273,16 +257,32 @@ function FormAddSuptrip() {
                   <Form.Check
                     inline
                     label="Flat water"
-                    name="bestForFlat"
+                    name="flatWater"
                     type="radio"
-                    id="typeSolid"
+                    value="flatWater"
+                    checked={formData.board.bestFor === "flatWater"}
+                    id="flatWater"
+                    onChange={handleRadios}
                   />
                   <Form.Check
                     inline
-                    label="Inflatable"
-                    name="typeInflatable"
+                    label="Performing"
+                    name="performing"
                     type="radio"
-                    id="typeInflatable"
+                    value="performing"
+                    checked={formData.board.bestFor === "performing"}
+                    id="performing"
+                    onChange={handleRadios}
+                  />
+                  <Form.Check
+                    inline
+                    label="Racing"
+                    name="racing"
+                    type="radio"
+                    value="racing"
+                    checked={board.racing}
+                    id="racing"
+                    onChange={handleRadios}
                   />
                 </div>
               </Form.Group>
@@ -292,10 +292,10 @@ function FormAddSuptrip() {
                 <Form.Control
                   as="textarea"
                   rows={2}
-                  name="eventDescription"
+                  name="supTripDescription"
                   placeholder="Entering to the water close to the beacons system, turning to the left on the rocks system an moving foward until we reach Areny's Port"
                   required
-                  //   onChange={handleFormData}
+                  onChange={handleInputs}
                 />
               </Form.Group>
 
