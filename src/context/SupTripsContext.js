@@ -85,7 +85,6 @@ export const SupTripProvider = ({ children }) => {
         currentWaypoints: updatedWaypoints,
       },
     });
-    console.log(state.currentWaypoints);
   };
 
   const value = {

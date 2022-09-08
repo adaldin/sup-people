@@ -28,7 +28,6 @@ const supTripsReducer = (state, action) => {
       // console.log("UPDATE_TRIP", payload);
       return { ...state, supTrips: payload.supTrips };
     case "GET_WAYPOINTS":
-      console.log("GET_WAYPOINTS", payload);
       return { currentWaypoints: payload.currentWaypoints };
     default:
       throw new Error(`No case for type ${type}`);
