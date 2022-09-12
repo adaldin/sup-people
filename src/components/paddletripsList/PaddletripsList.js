@@ -25,7 +25,7 @@ function PaddleTripsList() {
 
   useEffect(() => {
     async function initContext() {
-      if (supTrips.length === 0) {
+      if (supTrips === undefined || supTrips.length === 0) {
         await initSupTrips(supTripsFirestore);
       }
     }

@@ -1,6 +1,7 @@
 import "./formAddSuptrip.css";
 // React
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 // Bootstrap
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -37,6 +38,7 @@ function FormAddSuptrip() {
   const [coordinates, setCoordinates] = useState({});
   const [newSupTrip, setNewSuptrip] = useState({});
   const [tripSaved, setTripSaved] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentWaypoints) {
@@ -85,6 +87,7 @@ function FormAddSuptrip() {
       newTrip = { ...formData, coordinates };
       setNewSuptrip(newTrip);
       await addSupTriptoDB(newTrip);
+      navigate("/");
     } else {
       event.preventDefault();
       alert("Pss! Some fields are still empty. Fill them and then save ");
