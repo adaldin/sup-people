@@ -5,6 +5,7 @@ import {
   deleteDoc,
   doc,
   setDoc,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 
@@ -23,6 +24,15 @@ export async function getSupTrips() {
     return [];
   }
   return totalSupTrips;
+}
+
+export async function addSupTriptoDB(supTrip) {
+  try {
+    const docRef = await addDoc(collection(db, "supTrips"), supTrip);
+    console.log("Document written with ID: ", docRef.id);
+  } catch (err) {
+    console.log("Firestore error: ", err);
+  }
 }
 
 export async function updateTrips(trip) {

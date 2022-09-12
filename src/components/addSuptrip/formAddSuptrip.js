@@ -10,7 +10,7 @@ import Accordion from "react-bootstrap/Accordion";
 // Context
 import { useAuth } from "../../context/AuthContext";
 import useSupTrips from "../../context/SupTripsContext";
-import { updateTrips } from "../../services/APIService/index";
+import { addSupTriptoDB } from "../../services/APIService/index";
 
 function FormAddSuptrip() {
   // custom hook
@@ -74,19 +74,45 @@ function FormAddSuptrip() {
     }
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     let newTrip = {};
     const isFormEmpty = Object.values(formData).some(
       (input) => input === "" || input === []
     );
+
     if (coordinates && !isFormEmpty) {
       newTrip = { ...formData, coordinates };
+      setNewSuptrip(newTrip);
+      await addSupTriptoDB(newTrip);
+    } else {
+      event.preventDefault();
+      alert("Pss! Some fields are still empty. Fill them and then save ");
     }
-    setNewSuptrip(newTrip);
-    addSupTrip(newSupTrip);
-    updateTrips(newSupTrip);
+
+    // addNewSuptrip();
   }
+
+  // useEffect(() => {
+  //   async function addNewSuptrip() {
+  //     if (newSupTrip) {
+  //       // add trip to context
+  //       await addSupTrip(newSupTrip);
+  //       // add trip to db
+  //       await addSupTriptoDB(newSupTrip);
+  //       setTripSaved(true);
+  //     }
+  //   }
+  //   addNewSuptrip();
+  // }, [newSupTrip]);
+
+  // addNewSuptrip();
+
+  // useEffect(() => {
+  //   if (tripSaved) {
+  //     window.location.reload(true);
+  //   }
+  // }, [tripSaved]);
 
   //   function createNewPaddleTrip() {
   //     let atendeesArr = [];
@@ -136,7 +162,6 @@ function FormAddSuptrip() {
   //       console.log("Failed on writing do db: ", err);
   //     }
   //   }
-  console.log("suptrips: ", supTrips);
   return (
     <>
       <Accordion onClick={handleAnimation} className={openForm}>
