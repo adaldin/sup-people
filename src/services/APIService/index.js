@@ -47,7 +47,7 @@ export async function updateTrips(trip) {
 
 export async function deleteTrip(trip) {
   try {
-    const docRef = await deleteDoc(doc(db, "cities", trip.id));
+    const docRef = await deleteDoc(doc(db, "supTrips", trip.id));
     console.log("Document deleted: ", docRef);
   } catch (err) {
     console.log("Firestore error: ", err);
@@ -58,6 +58,13 @@ export async function deleteTrip(trip) {
 export function getSuptripsByAtendees(suptrips, uid) {
   const userSuptrips = suptrips.filter((suptrip) => {
     return suptrip.atendees.includes(uid) && suptrip.createdBy !== uid;
+  });
+  return userSuptrips;
+}
+
+export function getSuptripsByCreator(suptrips, uid) {
+  const userSuptrips = suptrips.filter((suptrip) => {
+    return suptrip.createdBy === uid;
   });
   return userSuptrips;
 }

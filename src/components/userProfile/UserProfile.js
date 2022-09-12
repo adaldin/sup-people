@@ -5,9 +5,13 @@ import { useAuth } from "../../context/AuthContext.js";
 import useSupTrips from "../../context/SupTripsContext";
 import { getUserName } from "../../services/usersService/index.js";
 import PaddleTripsItem from "../paddleTripsItem/PaddleTripsItem.js";
-import { getSuptripsByAtendees } from "../../services/APIService/index.js";
 import { Link } from "react-router-dom";
-import { updateTrips } from "../../services/APIService/index.js";
+import {
+  updateTrips,
+  deleteTrip,
+  getSuptripsByAtendees,
+  getSuptripsByCreator,
+} from "../../services/APIService/index.js";
 import AddSuptrip from "../addSuptrip/AddSuptrip.js";
 // Bootstrap
 import Container from "react-bootstrap/Container";
@@ -18,6 +22,7 @@ import Button from "react-bootstrap/Button";
 function UserProfile() {
   const [userName, setUserName] = useState("");
   const [filteredSupTrips, setFilteredSupTrips] = useState([]);
+  const [userTrips, setUserTrips] = useState([]);
   const { user, logout, loading } = useAuth();
   const { supTrips, updateSupTrip } = useSupTrips();
 
@@ -37,13 +42,26 @@ function UserProfile() {
         const userNextSupTrips = JSON.parse(
           localStorage.getItem("userNextSupTrips")
         );
+        const userOwnedSupTrips = JSON.parse(
+          localStorage.getItem("userOwnedSupTrips")
+        );
         setFilteredSupTrips(userNextSupTrips);
+        setUserTrips(userOwnedSupTrips);
       } else {
         const userNextSupTrips = getSuptripsByAtendees(supTrips, user.uid);
+        const userOwnedSupTrips = getSuptripsByCreator(supTrips, user.uid);
+
         setFilteredSupTrips(userNextSupTrips);
+        setUserTrips(userOwnedSupTrips);
+
         localStorage.setItem(
           "userNextSupTrips",
           JSON.stringify(userNextSupTrips)
+        );
+
+        localStorage.setItem(
+          "userOwnedSupTrips",
+          JSON.stringify(userOwnedSupTrips)
         );
       }
     }
@@ -55,15 +73,34 @@ function UserProfile() {
     navigate("/profile");
   }
 
-  async function handleNextTripsDelete(e, id) {
-    const currentSuptrip = supTrips.find((suptrip) => {
-      if (suptrip.id === id) {
-        suptrip.atendees.splice(suptrip.atendees.indexOf(user.uid), 1);
-      }
-      return suptrip;
-    });
-    updateSupTrip(currentSuptrip);
+  async function handleNextTripsDelete(e) {
+    const supId = e.target.id;
+    const currentSuptrip = filteredSupTrips.find(
+      (suptrip) => suptrip.id === supId
+    );
+    currentSuptrip.atendees.splice(
+      currentSuptrip.atendees.indexOf(user.uid),
+      1
+    );
+
+    // updateSupTrip(currentSuptrip);
     await updateTrips(currentSuptrip);
+    navigate("/");
+  }
+
+  async function handleMyTripDelete(e) {
+    const supId = e.target.id;
+    const currentSuptrip = userTrips.find((suptrip) => suptrip.id === supId);
+    await deleteTrip(currentSuptrip);
+    navigate("/");
+    //   const currentSuptrip = supTrips.find((suptrip) => {
+    //     if (suptrip.id === id) {
+    //       suptrip.atendees.splice(suptrip.atendees.indexOf(user.uid), 1);
+    //     }
+    //     return suptrip;
+    //   });
+    //   updateSupTrip(currentSuptrip);
+    //   await updateTrips(currentSuptrip);
   }
 
   return (
@@ -91,6 +128,26 @@ function UserProfile() {
             </Col>
           </Row>
           <Row>
+            <Col xs={12} className="mt-4">
+              <h6 className="fw-bold p-2">My Trips</h6>
+            </Col>
+            <Col xs={12}>
+              <div className="d-flex flex-column gap-2 p-2">
+                {userTrips !== null ? (
+                  userTrips.map((paddleTrip, i) => (
+                    <PaddleTripsItem
+                      key={userTrips[i].id}
+                      {...paddleTrip}
+                      deleteTrip={handleMyTripDelete}
+                    />
+                  ))
+                ) : (
+                  <Link to="/">
+                    <p className="text-muted">Join to a new Sup Trip </p>
+                  </Link>
+                )}
+              </div>
+            </Col>
             <Col xs={12} className="mt-4">
               <h6 className="fw-bold p-2">Next Joined Trips</h6>
             </Col>
