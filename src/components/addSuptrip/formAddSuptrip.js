@@ -92,79 +92,7 @@ function FormAddSuptrip() {
       event.preventDefault();
       alert("Pss! Some fields are still empty. Fill them and then save ");
     }
-
-    // addNewSuptrip();
   }
-
-  // useEffect(() => {
-  //   async function addNewSuptrip() {
-  //     if (newSupTrip) {
-  //       // add trip to context
-  //       await addSupTrip(newSupTrip);
-  //       // add trip to db
-  //       await addSupTriptoDB(newSupTrip);
-  //       setTripSaved(true);
-  //     }
-  //   }
-  //   addNewSuptrip();
-  // }, [newSupTrip]);
-
-  // addNewSuptrip();
-
-  // useEffect(() => {
-  //   if (tripSaved) {
-  //     window.location.reload(true);
-  //   }
-  // }, [tripSaved]);
-
-  //   function createNewPaddleTrip() {
-  //     let atendeesArr = [];
-  //     atendeesArr.push(user.email);
-  //     let dateToday = new Date();
-  //     const isFormEmpty = Object.values(formData).some(
-  //       (x) => x === "" || x === []
-  //     );
-
-  //     if (addresssData.length > 0 && !isFormEmpty) {
-  //       let entryPoint =
-  //         addresssData[1].results[0].address_components[2].long_name;
-  //       let startingPoint =
-  //         addresssData[0].results[0].address_components[2].long_name;
-  //       let newPddlTrip = {
-  //         geometry: {
-  //           coordinates: {
-  //             entry: [locations[0].lat, locations[0].lng],
-  //             exit: [locations[1].lat, locations[1].lng],
-  //           },
-  //           type: "Multipoint",
-  //         },
-  //         properties: {
-  //           atendees: atendeesArr,
-  //           eventDate: formData.eventDate,
-  //           eventName: formData.eventName,
-  //           eventTime: formData.eventTime,
-  //           ePoint: entryPoint,
-  //           sPoint: startingPoint,
-  //           eventDescription: formData.eventDescription,
-  //         },
-  //         type: "Feature",
-  //         timeStamp: dateToday,
-  //       };
-  //       setNewPaddleTrip(newPddlTrip);
-  //     }
-  //   }
-
-  //   async function handleEventCreation(e) {
-  //     e.preventDefault();
-  //     try {
-  //       const docRef = await addDoc(collection(db, "events"), newPaddleTrip);
-  //       console.log("Document written with ID: ", docRef.id);
-  //       setTripSaved(true);
-  //       window.location.reload(true);
-  //     } catch (err) {
-  //       console.log("Failed on writing do db: ", err);
-  //     }
-  //   }
   return (
     <>
       <Accordion onClick={handleAnimation} className={openForm}>

@@ -24,7 +24,7 @@ function UserProfile() {
   const [filteredSupTrips, setFilteredSupTrips] = useState([]);
   const [userTrips, setUserTrips] = useState([]);
   const { user, logout, loading } = useAuth();
-  const { supTrips, updateSupTrip } = useSupTrips();
+  const { supTrips, updateSupTrip, removeSupTrip } = useSupTrips();
 
   const navigate = useNavigate();
 
@@ -83,24 +83,15 @@ function UserProfile() {
       1
     );
 
-    // updateSupTrip(currentSuptrip);
+    updateSupTrip(currentSuptrip);
     await updateTrips(currentSuptrip);
-    navigate("/");
   }
 
   async function handleMyTripDelete(e) {
     const supId = e.target.id;
     const currentSuptrip = userTrips.find((suptrip) => suptrip.id === supId);
+    removeSupTrip(currentSuptrip);
     await deleteTrip(currentSuptrip);
-    navigate("/");
-    //   const currentSuptrip = supTrips.find((suptrip) => {
-    //     if (suptrip.id === id) {
-    //       suptrip.atendees.splice(suptrip.atendees.indexOf(user.uid), 1);
-    //     }
-    //     return suptrip;
-    //   });
-    //   updateSupTrip(currentSuptrip);
-    //   await updateTrips(currentSuptrip);
   }
 
   return (
