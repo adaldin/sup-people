@@ -15,7 +15,7 @@ function Header() {
     <Navbar expand="md" className="mb-0 gradient-bg-sea shadow-sm p-0">
       <Container fluid>
         <Navbar.Brand
-          href="http://localhost:3000/"
+          href="https://sup-people.vercel.app/"
           className="d-flex justify-content-center align-items-end gap-2"
         >
           <div style={{ width: "20px" }}>
