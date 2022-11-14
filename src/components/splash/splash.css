@@ -1,0 +1,11 @@
+.splash__container{
+    background-image: radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
+    animation-duration : 2.5s;
+    animation-name     : slideout;
+    animation-timing-function: ease;
+}
+
+@keyframes slideout {
+    from { margin-left : 0;     }
+    to   { margin-left : -130vw; }
+    }

@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'Kayak Sans';
+    src: local('Kayak-Sans-Light'), url("./assets/fonts/Kayak-Sans-Light.otf") format('otf');
+    src: local('Kayak-Sans-Light-Italic'), url("./assets/fonts/Kayak-Sans-Light-Italic.otf") format('otf');
+    src: local('Kayak-Sans-Regular'), url("./assets/fonts/Kayak-Sans-Regular.otf") format('otf');
+    src: local('Kayak-Sans-Regular-Italic'), url("./assets/fonts/Kayak-Sans-Regular-Italic.otf") format('otf');
+    src: local('Kayak-Sans-Bold'), url("./assets/fonts/Kayak-Sans-Bold.otf") format('otf');
+    src: local('Kayak-Sans-Bold-Italic'), url("./assets/fonts/Kayak-Sans-Bold-Italic.otf") format('otf');
+  
+}
+
+.font-heading{
+    font-family: 'Kayak Sans';
+    font-weight: normal;
+    color: #2C9BB3;
+}
+
+.font-title{
+    font-family: 'Kayak Sans';
+    font-weight: bold;
+    color: #2C9BB3;
+    font-size: 1.5rem;
+}
+.font-title-secondary{
+    font-family: 'Kayak Sans';
+    font-weight: bold;
+    color: #FEEABE;
+    font-size: 1.5rem;
+}
+
+.font-subtitle{
+    font-family: 'Kayak Sans';
+    color: #2C9BB3;
+}
+.font-subHeading{
+    font-family: 'Kayak Sans';
+    font-weight: lighter;
+    font-size: 0.9rem;
+    color: #2C9BB3;
+}
+.font-body{
+    font-family: 'Kayak Sans';
+}
+.font-primary-small{
+    font-family: 'Kayak Sans';
+    font-size: 0.7rem;
+       color: #2C9BB3;
+}
+
+.borders{
+    border: 1px  #2C9BB3 solid ;
+    border-radius: 5px 5px 5px 5px;
+}
+.primary-front-color{
+    color: #2C9BB3;
+}
+.secondary-front-color{
+    color: #FEEABE;
+}
+.white-front-color-header{
+    font-family: 'Kayak Sans';
+    font-size: 1.3rem;
+    color: #fff
+    ;
+}
+
+.primary-bg-color{
+    background-color: #2C9BB3;
+}
+
+.bg-gradient-primary{
+    background: rgb(44,155,179);
+    background: linear-gradient(180deg, rgba(44,155,179,1) 10%, rgba(0,171,255,0.35371179039301315) 87%);
+}
+.btn--primary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#fbfaee;;
+    border-radius: 20px 20px 20px 20px;
+    font-size: 0.8rem;
+    color: #2C9BB3;
+    border:1px solid #2C9BB3;
+}
+
+.btn--primary:focus{
+    color: #2C9BB3;
+    background-color:transparent;
+    border:1px solid #2393ac;
+}
+
+.btn--secondary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#2C9BB3;
+    border-radius: 20px 20px 20px 20px;
+    font-size: 0.8rem;
+    color: #FEEABE;
+    border:1px solid #2393ac;
+}
+
+.navbar-toggler-icon {
+    display: inline-block;
+    width: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+    background-image:url('./assets/water.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+}
+
+.gradient-bg-sea{
+    background-image: radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
+}
+.map--size___container{
+    width: 100%;
+}
+.map--position__container{
+    position: relative;
+}

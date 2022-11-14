@@ -1,0 +1,22 @@
+#windy #bottom,
+#windy #mobile-ovr-select,
+#windy #embed-zoom {
+    display: flexbox;
+}
+
+#windy #logo-wrapper {
+    top: 0;
+    right: 0;
+}
+
+#windy #logo-wrapper #logo {
+    left: 1rem;
+}
+#progress-bar {
+     overflow:visible;
+     width: 80%;
+}
+
+#windy .play-pause.off:before {
+    left: 0.1rem;
+}
