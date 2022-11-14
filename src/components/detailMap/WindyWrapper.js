@@ -5,7 +5,7 @@ import "./windyWrapper.css";
 function WindyWrapper({ coordinates, supTrip, id }) {
   useEffect(() => {
     const options = {
-      key: process.env.REACT_APP_WINDY_KEY,
+      key: windyMapsKey,
       lat: coordinates.lat,
       lon: coordinates.lng,
       zoom: 12,
