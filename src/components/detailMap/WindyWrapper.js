@@ -22,6 +22,10 @@ function WindyWrapper({ coordinates, supTrip, id }) {
         </svg> ${supTrip.supTripName} entry waypoint</strong></small>`
         )
         .openOn(map);
+
+      return () => {
+        window.windyInit();
+      };
     }); // eslint-disable-next-line
   }, []);
 
