@@ -5,7 +5,7 @@ import "./windyWrapper.css";
 function WindyWrapper({ coordinates, supTrip, id }) {
   useEffect(() => {
     const options = {
-      key: windyMapsKey,
+      key: process.env.REACT_APP_WINDY_KEY,
       lat: coordinates.lat,
       lon: coordinates.lng,
       zoom: 12,
@@ -22,9 +22,7 @@ function WindyWrapper({ coordinates, supTrip, id }) {
         </svg> ${supTrip.supTripName} entry waypoint</strong></small>`
         )
         .openOn(map);
-    });
-
-    // eslint-disable-next-line
+    }); // eslint-disable-next-line
   }, []);
 
   return <div id="windy" style={{ width: "100%", height: "50vh" }}></div>;
