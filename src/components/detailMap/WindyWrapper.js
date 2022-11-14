@@ -24,9 +24,6 @@ function WindyWrapper({ coordinates, supTrip, id }) {
         .openOn(map);
     });
 
-    return () => {
-      window.windyInit();
-    };
     // eslint-disable-next-line
   }, []);
 
