@@ -4,6 +4,7 @@ import "./windyWrapper.css";
 
 function WindyWrapper({ coordinates, supTrip, id }) {
   useEffect(() => {
+    let mapLoaded = false;
     const options = {
       key: windyMapsKey,
       lat: coordinates.lat,
@@ -14,6 +15,7 @@ function WindyWrapper({ coordinates, supTrip, id }) {
     };
     window.windyInit(options, (windyAPI) => {
       const { map } = windyAPI;
+      mapLoaded = true;
       window.L.popup()
         .setLatLng([coordinates.lat, coordinates.lng])
         .setContent(
@@ -22,7 +24,16 @@ function WindyWrapper({ coordinates, supTrip, id }) {
         </svg> ${supTrip.supTripName} entry waypoint</strong></small>`
         )
         .openOn(map);
-    }); // eslint-disable-next-line
+    });
+    return () => {
+      if (mapLoaded) {
+        window.windyInit(options, (windyAPI) => {
+          const { map } = windyAPI;
+          map.remove();
+        });
+      }
+    };
+    // eslint-disable-next-line
   }, []);
 
   return <div id="windy" style={{ width: "100%", height: "50vh" }}></div>;
