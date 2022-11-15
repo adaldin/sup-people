@@ -25,14 +25,14 @@ function WindyWrapper({ coordinates, supTrip, id }) {
         )
         .openOn(map);
     });
-    return () => {
-      if (mapLoaded) {
-        window.windyInit(options, (windyAPI) => {
-          const { map } = windyAPI;
-          map.remove();
-        });
-      }
-    };
+    // return () => {
+    //   if (mapLoaded) {
+    //     window.windyInit(options, (windyAPI) => {
+    //       const { map } = windyAPI;
+    //       map.remove();
+    //     });
+    //   }
+    // };
     // eslint-disable-next-line
   }, []);
 
