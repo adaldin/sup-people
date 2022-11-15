@@ -40,7 +40,7 @@ function Marker({ position, map, id }) {
       const infowindow = new window.google.maps.InfoWindow({
         content: `<h4>${upcomingSupTrips[id].supTripName}</h4>
         <small><i class="bi bi-calendar-check"></i> ${upcomingSupTrips[id].supTripDate} - <i class="bi bi-clock-history"></i> ${upcomingSupTrips[id].supTripHour}hs</small><br>
- <a href="http://localhost:3000/${upcomingSupTrips[id].id}" style="text-decoration:none;#2C9BB3:">Conoce los detalles</a>
+ <a href="https://sup-people.vercel.app/${upcomingSupTrips[id].id}" style="text-decoration:none;#2C9BB3:">Conoce los detalles</a>
         `,
       });
       marker.addListener("click", () => {
