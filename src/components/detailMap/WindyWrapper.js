@@ -4,7 +4,6 @@ import "./windyWrapper.css";
 
 function WindyWrapper({ coordinates, supTrip, id }) {
   useEffect(() => {
-    let mapLoaded = false;
     const options = {
       key: windyMapsKey,
       lat: coordinates.lat,
@@ -15,7 +14,6 @@ function WindyWrapper({ coordinates, supTrip, id }) {
     };
     window.windyInit(options, (windyAPI) => {
       const { map } = windyAPI;
-      mapLoaded = true;
       window.L.popup()
         .setLatLng([coordinates.lat, coordinates.lng])
         .setContent(
