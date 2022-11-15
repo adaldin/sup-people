@@ -14,5 +14,3 @@ export const geocodingKey = process.env.REACT_APP_GEOCODING_KEY;
 export const windyMapsKey = process.env.REACT_APP_WINDY_KEY;
 export const openWeatherKey = process.env.REACT_APP_OPENWEATHER_KEY;
 export const mapID = process.env.REACT_APP_MAP_ID;
-
-// tested
